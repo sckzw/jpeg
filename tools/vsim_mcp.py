@@ -4,7 +4,9 @@ tools/vsim_mcp.py - QuestaSim Remote Control MCP Server for AI Debugging
 """
 import json
 import os
+from pathlib import Path
 import socket
+import subprocess
 import sys
 from typing import List, Optional
 from mcp.server.fastmcp import FastMCP
@@ -209,6 +211,44 @@ def vsim_set_breakpoint(location: str) -> str:
     if res.get("status") == 0:
         return f"Breakpoint set: {location} (id: {res.get('result')})"
     return f"Failed to set breakpoint: {res.get('result')}"
+
+
+@mcp.tool()
+def vsim_coverage_save(filename: str = "build/coverage/debug.ucdb") -> str:
+    """
+    Save the current simulation coverage data into a UCDB (Unified Coverage Database) file.
+    :param filename: Output UCDB file path (default: 'build/coverage/debug.ucdb')
+    """
+    filepath = Path(filename).resolve()
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+    res = send_tcl_command(f"coverage save -directive -cvg -codeAll {filepath.as_posix()}")
+    if res.get("status") == 0:
+        return f"Coverage saved successfully to {filepath.as_posix()} at time {res.get('now')}"
+    return f"Failed to save coverage to {filename}: {res.get('result')}"
+
+
+@mcp.tool()
+def vsim_coverage_report(ucdb_path: str = "build/coverage/total.ucdb", details: bool = False) -> str:
+    """
+    Generate and view a coverage report from a UCDB file using vcover.
+    :param ucdb_path: Path to the UCDB file (default: 'build/coverage/total.ucdb')
+    :param details: If True, includes detailed per-instance/metric breakdowns
+    """
+    vcover = os.environ.get("VCOVER", "vcover")
+    path = Path(ucdb_path).resolve()
+    if not path.is_file():
+        return f"UCDB file not found: {path.as_posix()}"
+    cmd = [vcover, "report", "-summary"]
+    if details:
+        cmd.append("-details")
+    cmd.append(path.as_posix())
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        return proc.stdout
+    except subprocess.CalledProcessError as e:
+        return f"vcover report error (exit code {e.returncode}):\n{e.stderr or e.stdout}"
+    except Exception as e:
+        return f"Error executing vcover report: {e}"
 
 
 if __name__ == "__main__":

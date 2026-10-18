@@ -21,6 +21,9 @@ GnuWin32 の `make` コマンド、または `vlog` / `vsim` コマンドライ�
 - `make interoperability`: 結合テスト実行後、RTL生成scanデータとPillow/libjpegによる外部復号・画質一致検証（約50秒）。
 - `make test`: `lint` → `unit` → `interoperability` の回帰テストを一括実行（約1分40秒）。
 - `make test-restart`: ソフトウェア参照エンコーダー生成のRestart入力によるMCU計数・巡回・パディング・エラー耐性検証（約1分20秒）。
+- `make coverage`: カバレッジ有効（`COVERAGE=1`）で全テストを実行し、各テストの UCDB を `build/coverage/` に出力、自動マージしてサマリーと HTML レポートを生成。
+- `make report-coverage`: `build/coverage/` 内の既存 UCDB ファイル群を `vcover merge` して `total.ucdb` を作成し、サマリー（`summary.txt`）、詳細（`details.txt`）、HTML レポート（`html/index.html`）を生成。
+  - 任意のターゲットに `COVERAGE=1` を指定可能（例: `make unit COVERAGE=1`）。
 - `make clean`: 一時ライブラリ (`build/work`)、実行ログ、波形ファイルを削除。
 
 ### 【注意】シミュレーション時間が長大なターゲット

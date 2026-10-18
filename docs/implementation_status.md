@@ -88,3 +88,23 @@ Verilator依存となっていた画像変換CLI（`jpeg_tools.md`）および�
 - `tools/jpeg_tool.py` の docstring を Questa Sim に更新。
 - 仕様書・運用ドキュメント（`README.md`, `AGENTS.md`, `docs/requirements.md`, `docs/blocks/rtl_contract.md`, `docs/blocks/jpeg_top.md`, `docs/jpeg_tools.md`, `docs/restart_decode.md`, `docs/implementation_handoff.md`, `docs/implementation_status.md`）のシミュレーション環境記述を Questa Sim / SystemVerilog に統一。
 
+## 2026-10-19: Questa Sim コードカバレッジ（UCDB）出力およびレポート生成対応
+
+ユーザー要求に基づき、Questa Sim でコードカバレッジデータ（UCDB）を収集・保存・レポート出力できる検証基盤を構築した。
+- `Makefile`:
+  - `COVERAGE ?= 0`: 通常実行時はカバレッジ無効で高速実行を維持。`COVERAGE=1` 指定時に RTL に対する `+cover=bcesft` および vsim に対する `-coverage` を付与。
+  - テスト実行時に `coverage save -onexit -directive -cvg -codeAll $(COVERAGE_DIR)/<testname>.ucdb` を適用し、各テスト個別の UCDB ファイルを `build/coverage/` に出力。
+  - `make coverage`: 全テスト（unit, integration, restart, tools）をカバレッジ有効で実行し、マージとレポートまで一括生成。
+  - `make report-coverage`: 生成済み UCDB をマージしてレポートを生成。
+- `tools/report_coverage.py`:
+  - `vcover merge` で全テストの UCDB を `build/coverage/total.ucdb` に自動マージ。
+  - `vcover report -summary` でコンソールおよび `summary.txt` へテキストサマリーを出力。
+  - `vcover report -details` で `details.txt` へ詳細レポートを出力。
+  - `vcover report -html` で `build/coverage/html/index.html`（ブラウザ閲覧用ダッシュボード）を生成。
+- `tools/jpeg_tool.py`:
+  - `COVERAGE=1` 環境変数設定時に `-coverage` と `jpeg_tool_tb.ucdb` 保存オプションを自動付与。
+- `tools/vsim_ai_debug.tcl` / `tools/vsim_mcp.py`:
+  - Tcl ヘルパー `save_cov ?filename?` および終了時自動保存ハンドラを追加。
+  - FastMCP ツール `vsim_coverage_save(filename)` および `vsim_coverage_report(ucdb_path)` を追加し、AI対話デバッグ中もカバレッジの保存・確認を可能にした。
+
+

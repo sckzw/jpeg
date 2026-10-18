@@ -41,18 +41,26 @@ def run_rtl(job, mode, w, h, fmt, select, input_size, restart_interval=0, gui=Fa
     wlf_path = job / 'vsim.wlf'
     ai_debug = gui or (os.environ.get('VSIM_AI_DEBUG', '0').lower() in ('1', 'true', 'yes'))
 
+    coverage = os.environ.get('COVERAGE', '0').lower() in ('1', 'true', 'yes')
+    coverage_dir = Path(os.environ.get('COVERAGE_DIR', ROOT / 'build/coverage'))
+    cov_args = ['-coverage'] if coverage else []
+    cov_ucdb = (coverage_dir / 'jpeg_tool_tb.ucdb').as_posix()
+    cov_do = ['-do', f'coverage save -onexit -directive -cvg -codeAll {cov_ucdb}'] if coverage else []
+    if coverage:
+        coverage_dir.mkdir(parents=True, exist_ok=True)
+
     if ai_debug:
         tcl_script = (ROOT / 'tools/vsim_ai_debug.tcl').as_posix()
         # AI Debug mode: +acc enabled, GUI mode, waveform logging via log -r /*, no run -all, Tcl socket server
-        cmd = [vsim, '-gui', '-l', log_path.as_posix(), '-wlf', wlf_path.as_posix(), '-voptargs=+acc', '-lib', work,
-               'jpeg_tool_tb', f'+JOB_DIR={job.as_posix()}', '-do', f'source {tcl_script}']
+        cmd = [vsim, '-gui', '-l', log_path.as_posix(), '-wlf', wlf_path.as_posix(), '-voptargs=+acc', '-lib', work] + cov_args + [
+               'jpeg_tool_tb', f'+JOB_DIR={job.as_posix()}'] + cov_do + ['-do', f'source {tcl_script}']
         print(f"[jpeg_tool] Launching QuestaSim in AI Debug mode (+acc, GUI, socket server)...")
         print(f"[jpeg_tool] Job directory: {job.as_posix()}")
         subprocess.run(cmd, check=True)
     else:
         # Normal fast mode: no +acc for max optimization speed, -c batch mode, run -all; quit
-        cmd = [vsim, '-c', '-l', log_path.as_posix(), '-wlf', wlf_path.as_posix(), '-lib', work,
-               'jpeg_tool_tb', f'+JOB_DIR={job.as_posix()}', '-do', 'run -all; quit']
+        cmd = [vsim, '-c', '-l', log_path.as_posix(), '-wlf', wlf_path.as_posix(), '-lib', work] + cov_args + [
+               'jpeg_tool_tb', f'+JOB_DIR={job.as_posix()}'] + cov_do + ['-do', 'run -all; quit']
         try:
             subprocess.run(cmd, capture_output=True, text=True, check=True)
         except subprocess.CalledProcessError:

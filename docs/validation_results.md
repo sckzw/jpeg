@@ -29,3 +29,29 @@ CPU準備・入出力時間は未測定。CPU込み100 ppm、実デバイスの2
 ## Restart拡張後の再測定
 
 上記表は初回実装の結果。Restart拡張後はencoder/decode入力を分離して再測定した。最新の独立入力・RTL実測とJSONは[Restart対応の性能表](restart_decode.md)を参照する。
+
+## コードカバレッジ（UCDB）測定実績
+
+2026-10-19時点のQuesta Simによるコードカバレッジ（`COVERAGE=1`、`+cover=bcesft`）およびUCDB出力実績。
+
+- **対象**: 単体テスト群（`numeric_tb`, `bitstream_tb`, `storage_tb`, `dma_tb`, `width_tb`, `apb_tb`）
+- **出力成果物**:
+  - 各TB別UCDB: `build/coverage/<testname>.ucdb`
+  - マージUCDB: `build/coverage/total.ucdb`
+  - テキストサマリー: `build/coverage/summary.txt`
+  - 詳細テキスト: `build/coverage/details.txt`
+  - HTMLダッシュボード: `build/coverage/html/index.html`
+
+### 単体テスト統合カバレッジ実績（total.ucdb）
+
+| カバレッジ種別 | Bins | Hits | Misses | 達成率 |
+|---|---:|---:|---:|---:|
+| **Statements (行)** | 1,696 | 1,563 | 133 | **92.15%** |
+| **Branches (分岐)** | 876 | 751 | 125 | **85.73%** |
+| **Expressions (式)** | 303 | 255 | 48 | **84.15%** |
+| **Conditions (条件)** | 379 | 189 | 190 | **49.86%** |
+| **FSM States (状態)** | 9 | 9 | 0 | **100.00%** |
+| **FSM Transitions (状態遷移)** | 26 | 9 | 17 | **34.61%** |
+| **Toggles (トグル)** | 12,014 | 6,101 | 5,913 | **50.78%** |
+| **総合カバレッジ (Filtered)** | - | - | - | **71.04%** |
+

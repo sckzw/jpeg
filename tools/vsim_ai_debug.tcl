@@ -27,6 +27,29 @@ proc json_escape {str} {
     ] $str]
 }
 
+proc save_cov {{filename "build/coverage/ai_debug.ucdb"}} {
+    set dir [file dirname $filename]
+    if {$dir ne "." && $dir ne ""} {
+        catch {file mkdir $dir}
+    }
+    set st [catch {coverage save -directive -cvg -codeAll $filename} res]
+    if {$st == 0} {
+        puts "\[vsim_ai_debug\] Coverage saved to $filename"
+        return "Coverage saved to $filename"
+    } else {
+        puts "\[vsim_ai_debug ERROR\] Failed to save coverage: $res"
+        error $res
+    }
+}
+
+# Coverage auto-save on exit if coverage is active
+if {[catch {coverage attribute} _cov_attr] == 0} {
+    set cov_file "build/coverage/ai_debug.ucdb"
+    catch {file mkdir [file dirname $cov_file]}
+    catch {coverage save -onexit -directive -cvg -codeAll $cov_file}
+    puts "\[vsim_ai_debug\] Coverage onexit save registered: $cov_file"
+}
+
 # 2. 波形ロギングの事前登録 (全階層の信号をWLFへ記録)
 puts "\[vsim_ai_debug\] Registering full waveform logging: log -r /* ..."
 if {[catch {log -r /*} err]} {
