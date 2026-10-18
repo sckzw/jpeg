@@ -39,10 +39,10 @@
 |---|---|---|
 | `docs/` | **要件定義・設計仕様・検証記録** | `requirements.md`（要件定義）<br>`design_spec.md`（全体設計・接続図）<br>`blocks/`（ブロック別仕様書）<br>`blocks/rtl_contract.md`（RTL実装契約）<br>`rtl_interfaces.md`（内部I/F仕様）<br>`restart_decode.md`（拡張仕様）<br>`implementation_handoff.md`（引き継ぎ書）<br>`implementation_status.md`（実装状況・残課題）<br>`validation_results.md`（検証記録・実測値） |
 | `rtl/` | **合成可能 Verilog RTL ソースコード** | `jpeg_top.v`（トップモジュール）<br>`jpeg_*.v`（各ブロック回路モジュール）<br>`jpeg_defs.vh`（共通定数・レジスタ・エラー定義）<br>`jpeg_c.vh`（DCT/IDCT変換定数）<br>`jpeg_zigzag.vh`（ジグザグ走査テーブル） |
-| `sim/` | **シミュレーション・テストベンチ** | `top_test.cpp`（トップ統合検証環境）<br>`jpeg_sim_bus.h`（APB/AXIエミュレーションモデル）<br>`numeric_test.cpp`, `bitstream_test.cpp`, `dma_test.cpp`（単体C++ TB）<br>`apb_tb.sv`, `storage_tb.sv`, `width_tb.sv`（SystemVerilog TB）<br>`sim/README.md`（テスト環境詳細） |
+| `sim/` | **シミュレーション・テストベンチ** | `top_tb.sv`（トップ統合検証環境）<br>`numeric_tb.sv`, `bitstream_tb.sv`, `dma_tb.sv`, `storage_tb.sv`, `width_tb.sv`, `apb_tb.sv`, `jpeg_tool_tb.sv`（SystemVerilog TB）<br>`sim/README.md`（テスト環境詳細） |
 | `tools/` | **参照モデル・生成・判定スクリプト** | `generate_vectors.py`, `generate_rtl_tables.py`（ベクタ・テーブル生成）<br>`check_interop.py`（外部JPEG/Pillow相互運用判定）<br>`generate_performance_decode.py`, `check_performance.py`（A4性能評価）<br>`generate_manuscript.py`（模擬原稿生成）<br>`jpeg_encode.py`, `jpeg_decode.py`（CLI画像変換ツール） |
 | `tests/data/` | **テストデータ・生成条件** | 再生成可能な入力データバイナリ（`.bin`）、画像（`.png`）、条件記述（`.json`） |
-| `build/` | **ビルド・実行時生成物（Git管理外）** | Verilatorコンパイル成果物（`Vjpeg_top` 等）、実行時ログ、生成scan/jpg、計測結果JSON |
+| `build/` | **ビルド・実行時生成物（Git管理外）** | Questa Simコンパイル成果物（`build/work` 等）、実行時ログ、生成scan/jpg、計測結果JSON |
 | `Makefile` | **ビルド・検証エントリポイント** | lint、単体、結合、相互運用、性能、拡張試験の実行ターゲット定義 |
 
 ---
@@ -94,10 +94,10 @@
 
 ### 3.4 検証・RTLシミュレーション（Verification）ルール
 1. **検証環境**:
-   - シミュレータは **Verilator** を使用（`C++` および `SystemVerilog` テストベンチ）。
+   - シミュレータは **Questa Sim (`vsim` / `vlog`)** を使用（SystemVerilog テストベンチ）。
 2. **検証階層と実行コマンド**:
    - **Strict Lint**: `make lint`
-     - Verilatorによる構文・未宣言・ビット幅不一致・多重駆動チェック。警告ゼロを必須とする。
+     - `vlog -lint` による構文・未宣言・ビット幅不一致チェック。エラー・警告ゼロを必須とする。
    - **単体テスト**: `make unit`
      - 数値演算（`sim/numeric_top.v`）、ビットストリーム（`rtl/jpeg_bitstream.v`）、FIFO/RAM（`sim/storage_tb.sv`）、DMA（`sim/dma_top.v`）、repack（`sim/width_tb.sv`）、APB（`sim/apb_tb.sv`）の独立検証。
    - **結合・相互運用テスト**: `make integration`, `make interoperability`
@@ -125,7 +125,7 @@
 1. **チャット履歴を前提としない自律性**:
    - 会話履歴が途切れた場合でも、`docs/implementation_handoff.md` および `docs/implementation_status.md` を起点に作業を継続すること。
 2. **環境確認の徹底**:
-   - 作業開始時に利用可能なツール（`verilator`, `vsim`, `py`, `make` 等）の有無を確認すること。
+   - 作業開始時に利用可能なツール（`vsim`, `vlog`, `py`, `make` 等）の有無を確認すること。
 3. **回帰検証の義務**:
    - 変更後は必ず `make lint` や関連テストを実行し、リグレッションがないことを確認すること。
 4. **Git・成果物管理**:

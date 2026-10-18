@@ -72,7 +72,9 @@ def main():
     cases = [('one', 1, 1, '444', 1), ('rgba', 17, 13, '444', 16),
              ('odd422', 17, 13, '422', 8), ('odd420', 17, 13, '420', 16),
              ('largeq', 9, 9, '420', 255), ('dense', 32, 24, '444', 1)]
-    with tempfile.TemporaryDirectory(prefix='jpeg-cli-test-') as temporary:
+    TEMP_DIR = ROOT / 'build/tmp'
+    TEMP_DIR.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='jpeg-cli-test-', dir=TEMP_DIR) as temporary:
         job = Path(temporary)
         for name, w, h, sampling, quant in cases:
             source, jpg, png = job/f'{name}.png', job/f'{name}.jpg', job/f'{name}_out.png'

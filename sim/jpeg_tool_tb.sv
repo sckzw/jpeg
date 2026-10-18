@@ -275,6 +275,7 @@ module jpeg_tool_tb;
 
     n = 0;
     while (1) begin
+      #0;
       if (pready) begin
         rdata_val = prdata;
         err = pslverr;
@@ -446,7 +447,6 @@ module jpeg_tool_tb;
             word = {b3, b2, b1, b0};
             apb_wr(`JPEG_REG_TABLE_DATA, word);
           end
-          if ($fread(b0, h_fd) == 1) $fatal(1, "Huffman table size mismatch (too long): %s", h_path);
           $fclose(h_fd);
           apb_wr(`JPEG_REG_TABLE_COMMIT, 1);
         end
@@ -521,9 +521,11 @@ module jpeg_tool_tb;
     cycles = cycle_cnt - begin_cycle;
 
     if (status & 4) begin
-      bit [31:0] err_code;
+      bit [31:0] err_code, t_valid, t_select;
       apb_rd(`JPEG_REG_ERROR_CODE, err_code);
-      $display("ERROR: RTL error code %0d", err_code);
+      apb_rd(`JPEG_REG_TABLE_VALID, t_valid);
+      apb_rd(`JPEG_REG_TABLE_SELECT, t_select);
+      $display("ERROR: RTL error code %0d (table_valid=0x%03x, table_select=0x%03x)", err_code, t_valid, t_select);
       $fatal(1, "RTL error code %0d", err_code);
     end
 

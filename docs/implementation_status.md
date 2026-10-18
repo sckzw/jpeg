@@ -42,11 +42,11 @@ make performance-stress
 make performance-variable
 ```
 
-Verilator 5.049 devel（v5.048-230-gde0236be2）、g++ 13.3.0、Python 3.12.3、Pillow 10.2.0。乱数seedは20261005。Makefileはccacheを無効化する。生成入力は`tests/data/`、実行成果物は`build/`。`make clean`はbuildのみ削除する。ROM再生成は`python3 tools/generate_rtl_tables.py`、lintで生成内容を照合する。
+Questa Sim（vsim / vlog）、Python 3、Pillow。乱数seedは20261005。生成入力は`tests/data/`、実行成果物は`build/`。`make clean`はbuild/workのみ削除する。ROM再生成は`python3 tools/generate_rtl_tables.py`、lintで生成内容を照合する。
 
 ## 未検証・残課題
 
-- 対象デバイス未指定。合成・配置配線、面積、実タイミング256 MHzは未検証。Verilatorのサイクル換算はタイミング保証ではない。
+- 対象デバイス未指定。合成・配置配線、面積、実タイミング256 MHzは未検証。シミュレーションのサイクル換算はタイミング保証ではない。
 - CPUのヘッダ・色変換・tableロード・入出力時間は未測定。CPU込み100 ppmの達成は未認定。
 - 外部ライブラリとの画素差・PSNRは測定値であり、画質の最終受入しきい値は未決。報告PSNRは同じscanをRTLと外部ライブラリで復号した差であり、元画像との非可逆圧縮画質ではない。
 - 最大寸法全画像の処理、全テーブル・全入力の網羅証明、formal検証、実機AXI相互接続は未実施。
@@ -78,3 +78,13 @@ Verilator依存となっていた画像変換CLI（`jpeg_tools.md`）および�
 - `Makefile`: `jpeg-tools` ターゲットを `$(WORK)/_tool_built`（`vlog` による `sim/jpeg_tool_tb.sv` ビルド）に切り替え。
 - `tools/jpeg_tool.py`: `run_rtl` の呼び出し先をVerilatorバイナリから `vsim -c -lib ... jpeg_tool_tb` に更新。Windowsパスのフォワードスラッシュ統一およびPythonスクリプト内のUTF-8エンコーディング指定を追加。
 - 回帰確認: `make lint`, `make test-tools`, `make test-internet-images`, `make test-internet-five`, `make test-restart` がすべてPASSすることを確認。
+
+## 2026-10-18: Verilator関連資産・記述の完全削除と環境見直し
+
+シミュレーション環境が Questa Sim (`vsim` / `vlog` / SystemVerilog) に完全移行したことに伴い、不要となった Verilator 関連資材および記述を整理・見直した。
+- 旧 Verilator 用 C++ テストベンチおよびドライバ（`sim/jpeg_sim_bus.h`, `sim/top_test.cpp`, `sim/numeric_test.cpp`, `sim/bitstream_test.cpp`, `sim/dma_test.cpp`, `tools/jpeg_rtl.cpp`）を削除。
+- `rtl/jpeg_top.v` 内の Verilator 専用プラグマコメント（`/* verilator public_flat_rd */`）を削除。
+- `Makefile` から Verilator 用変数・フラグ（`VERILATOR`, `VFLAGS`, `CCACHE_DISABLE`）を削除。
+- `tools/jpeg_tool.py` の docstring を Questa Sim に更新。
+- 仕様書・運用ドキュメント（`README.md`, `AGENTS.md`, `docs/requirements.md`, `docs/blocks/rtl_contract.md`, `docs/blocks/jpeg_top.md`, `docs/jpeg_tools.md`, `docs/restart_decode.md`, `docs/implementation_handoff.md`, `docs/implementation_status.md`）のシミュレーション環境記述を Questa Sim / SystemVerilog に統一。
+

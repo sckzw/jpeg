@@ -17,7 +17,7 @@ from jpeg_cpu import parse
 from test_jpeg_tool import expected_rgb
 
 INPUT = ROOT/'tests/data/internet'
-OUTPUT = ROOT/'tests/results/internet'
+OUTPUT = ROOT/'build/results/internet'
 SOURCES = [
     dict(file='example.png', role='encoder input', author='Wolfgang / W.', license='Public domain',
          page='https://commons.wikimedia.org/wiki/File:Example.png',

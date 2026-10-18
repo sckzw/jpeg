@@ -8,7 +8,7 @@
 
 ## 1. 言語・パラメータ・対応範囲
 
-- 合成対象はVerilog-2001。テストベンチはSystemVerilogまたはVerilatorのC++を利用可能とする。RAMは推論可能な同期配列、演算定数は固定整数、ベンダーIPは使用しない。
+- 合成対象はVerilog-2001。テストベンチはSystemVerilogを利用する。RAMは推論可能な同期配列、演算定数は固定整数、ベンダーIPは使用しない。
 - clk、rst_nは全モジュール共通。rst_n=0をクロック立上りで検出して初期化する。mode=0 encode、1 decode。
 - 初回RTLは4:4:4／4:2:2／4:2:0、成分順Y→Cb→Cr、単一インターリーブscan。encodeはRestartなし。2026-10-06のユーザー依頼によりdecodeはDRI/RSTに対応する（[拡張契約](../restart_decode.md)）。CPUがDRIを読み、0x06Cへ設定し、RSTを含むscanを入力する。異なるscan順・非対応形式は開始前に拒否する。
 

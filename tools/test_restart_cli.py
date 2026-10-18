@@ -7,7 +7,7 @@ from jpeg_cpu import parse
 from test_jpeg_tool import expected_rgb
 from test_internet_images import cli, difference
 
-OUTPUT=ROOT/'tests/results/restart'
+OUTPUT=ROOT/'build/results/restart'
 
 def check(source, stem):
     info=parse(source.read_bytes())

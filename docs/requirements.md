@@ -56,7 +56,7 @@
 
 ## 5. 開発・完了条件
 
-- Verilogの版・シミュレータ：Verilator
+- 言語標準・シミュレータ：Verilog-2001、Questa Sim (vsim / vlog)
 - 参照ソフトウェア：TBD
 - テスト画像：検証時に、[Brotherの印刷速度説明ページ](https://support.brother.com/g/s/id/printspeed/index.html)のサムネイルを参考に模擬画像を作成する。ISO/IEC 24734・24735の正式な原稿の代替としてプロジェクト内の評価に使用する。
 - 追加の参照先：[HPのISO/IEC 24734説明ページ](https://www.hp.com/products1/ISO/MMDPP/index.html)。本文とAdobe Reader・Word・Excelのテスト原稿のサムネイルへの参照は確認済み。画像ファイルは取得できておらず、画像自体は未確認。検証時に取得・確認して模擬画像の作成に使用する。

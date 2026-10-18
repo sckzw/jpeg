@@ -37,7 +37,7 @@ encodeの差は非可逆圧縮・色変換・samplingによる損失を含む。
 ## 保存・再現
 
 - [入力画像・出典](../tests/data/internet_five/README.md)、[URL・SHA-256](../tests/data/internet_five/sources.json)
-- [出力画像](../tests/results/internet_five/README.md)、[測定JSON](../tests/results/internet_five/report.json)
+- [測定JSON](../build/results/internet_five/report.json)
 - [実行ログ](validation/internet_five.log)、[試験スクリプト](../tools/test_internet_five.py)
 
 ```sh

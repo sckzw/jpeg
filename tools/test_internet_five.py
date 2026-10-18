@@ -10,7 +10,7 @@ from test_internet_images import cli, difference
 from test_jpeg_tool import expected_rgb
 
 INPUT = ROOT/'tests/data/internet_five'
-OUTPUT = ROOT/'tests/results/internet_five'
+OUTPUT = ROOT/'build/results/internet_five'
 SOURCES = [
     dict(file='dice1.png', role='encode', sampling='444',
          page='https://commons.wikimedia.org/wiki/File:PNG_transparency_demonstration_1.png',

@@ -346,6 +346,7 @@ module top_tb;
 
     n = 0;
     while (1) begin
+      #0;
       if (pready) begin
         rdata_val = prdata;
         err = pslverr;

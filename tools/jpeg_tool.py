@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PNG/JPEG CLI using Verilated jpeg_top for entropy and transform processing."""
+"""PNG/JPEG CLI using Questa Sim simulation of jpeg_top for entropy and transform processing."""
 import argparse
 import os
 from pathlib import Path
@@ -13,6 +13,9 @@ from generate_vectors import jpeg
 from reference import huffman
 
 ROOT = Path(__file__).resolve().parents[1]
+BUILD_DIR = ROOT / 'build'
+TEMP_DIR = BUILD_DIR / 'tmp'
+LOGS_DIR = BUILD_DIR / 'logs'
 TOOL_BUILT = ROOT / 'build/work/_tool_built'
 FORMATS = {'444': 0, '422': 1, '420': 2}
 
@@ -32,20 +35,23 @@ def run_rtl(job, mode, w, h, fmt, select, input_size, restart_interval=0, gui=Fa
         raise ValueError('RTL simulator is not built; run make jpeg-tools first')
     vsim = os.environ.get('VSIM', 'vsim')
     work = Path(os.environ.get('WORK', ROOT / 'build/work')).as_posix()
+    TEMP_DIR.mkdir(parents=True, exist_ok=True)
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
     log_path = job / 'transcript.log'
+    wlf_path = job / 'vsim.wlf'
     ai_debug = gui or (os.environ.get('VSIM_AI_DEBUG', '0').lower() in ('1', 'true', 'yes'))
 
     if ai_debug:
         tcl_script = (ROOT / 'tools/vsim_ai_debug.tcl').as_posix()
         # AI Debug mode: +acc enabled, GUI mode, waveform logging via log -r /*, no run -all, Tcl socket server
-        cmd = [vsim, '-gui', '-l', log_path.as_posix(), '-voptargs=+acc', '-lib', work,
+        cmd = [vsim, '-gui', '-l', log_path.as_posix(), '-wlf', wlf_path.as_posix(), '-voptargs=+acc', '-lib', work,
                'jpeg_tool_tb', f'+JOB_DIR={job.as_posix()}', '-do', f'source {tcl_script}']
         print(f"[jpeg_tool] Launching QuestaSim in AI Debug mode (+acc, GUI, socket server)...")
         print(f"[jpeg_tool] Job directory: {job.as_posix()}")
         subprocess.run(cmd, check=True)
     else:
         # Normal fast mode: no +acc for max optimization speed, -c batch mode, run -all; quit
-        cmd = [vsim, '-c', '-l', log_path.as_posix(), '-lib', work,
+        cmd = [vsim, '-c', '-l', log_path.as_posix(), '-wlf', wlf_path.as_posix(), '-lib', work,
                'jpeg_tool_tb', f'+JOB_DIR={job.as_posix()}', '-do', 'run -all; quit']
         try:
             subprocess.run(cmd, capture_output=True, text=True, check=True)
@@ -55,11 +61,18 @@ def run_rtl(job, mode, w, h, fmt, select, input_size, restart_interval=0, gui=Fa
             raise
 
     if log_path.is_file():
-        log_text = log_path.read_text(encoding='utf-8', errors='ignore')
-        for line in log_text.splitlines():
-            clean = line.lstrip('#').strip()
-            if clean.startswith('[jpeg_tool_tb]') or clean.startswith('RTL '):
-                print(clean, flush=True)
+        import shutil
+        shutil.copy2(log_path, LOGS_DIR / 'jpeg_tool.log')
+        text = log_path.read_text(encoding='utf-8', errors='ignore')
+        for line in text.splitlines():
+            line_clean = line.lstrip('#').strip()
+            if line_clean.startswith('RTL encode cycles=') or line_clean.startswith('RTL decode cycles='):
+                print(line_clean)
+    if wlf_path.is_file():
+        import shutil
+        shutil.copy2(wlf_path, LOGS_DIR / 'jpeg_tool.wlf')
+
+
 
 
 def subsample(plane, w, h, hs, vs):
@@ -112,7 +125,8 @@ def encode(source, destination, quant=16, sampling='444', gui=False):
         run_rtl(job, 0, w, h, fmt, 0x210, sum(map(len, planes)), gui=gui)
         scan = (job/'output.scan').read_bytes()
     else:
-        with tempfile.TemporaryDirectory(prefix='jpeg-rtl-') as temporary:
+        TEMP_DIR.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='jpeg-rtl-', dir=TEMP_DIR) as temporary:
             job = Path(temporary)
             for c in range(3):
                 (job/f'q{c}.bin').write_bytes(bytes(qs[c]))
@@ -152,7 +166,8 @@ def decode(source, destination, gui=False):
         planes = [Image.frombytes('L', size, (job/f'output{c}.bin').read_bytes())
                   for c, size in enumerate(dims)]
     else:
-        with tempfile.TemporaryDirectory(prefix='jpeg-rtl-') as temporary:
+        TEMP_DIR.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='jpeg-rtl-', dir=TEMP_DIR) as temporary:
             job = Path(temporary)
             for c in range(3):
                 (job/f'q{c}.bin').write_bytes(bytes(info['qs'][info['qids'][c]]))

@@ -19,7 +19,7 @@ module jpeg_top #(parameter ADDR_W=64,ID_W=1)(
  reg pixel_active,pixel_restart,desc_pending,desc_restart,pixels_done;reg [5:0] fill_index;reg [7:0] previous_byte;
  reg [3:0] issue_row,issue_col;reg rd_complete,wr_complete;reg [63:0] jpeg_read_offset,jpeg_write_offset;
  reg [63:0] request_addr;reg [3:0] request_len;reg [2:0] request_size;reg request_last,request_valid;
- wire request_ready;wire [10:0] reserved_bytes;wire [11:0] in_used /* verilator public_flat_rd */,out_used /* verilator public_flat_rd */;
+ wire request_ready;wire [10:0] reserved_bytes;wire [11:0] in_used,out_used;
  wire rd_valid,rd_ready;wire [63:0] rd_data;wire [7:0] rd_keep;wire rd_last;
  wire if_valid,if_ready;wire [63:0] if_data;wire [7:0] if_keep;wire if_last;
  wire ib_valid,ib_ready;wire [7:0] ib_byte;wire ib_last;
@@ -331,9 +331,9 @@ wire [63:0] jpeg_write_address=jpeg_base+jpeg_write_offset;
  assign wr_addr=mode?row_address[ADDR_W-1:0]:(jpeg_base[ADDR_W-1:0]+jpeg_write_offset[ADDR_W-1:0]);
  assign wr_data=mode?row_data:of_data;assign wr_keep=mode?row_keep:of_keep;assign wr_last=mode?row_last:of_last;
  assign of_ready=!mode&&write_requested&&wr_s_ready&&!stop_request;
-wire t_sv /* verilator public_flat_rd */,t_sr /* verilator public_flat_rd */,t_mv,t_mr,t_done,t_err,t_active;wire signed [31:0] t_si,t_mo;wire [5:0] t_sx,t_mx;wire [1:0] t_sc,t_mc;wire [31:0] t_ss,t_ms;wire t_sl,t_ml;wire [7:0] t_code;
-wire q_sv /* verilator public_flat_rd */,q_sr /* verilator public_flat_rd */,q_mv,q_mr,q_done,q_err,q_active;wire signed [31:0] q_si,q_mo;wire [5:0] q_sx,q_mx;wire [1:0] q_sc,q_mc;wire [31:0] q_ss,q_ms;wire q_sl,q_ml;wire [7:0] q_code;
-wire e_sv /* verilator public_flat_rd */,e_sr /* verilator public_flat_rd */,e_mv,e_mr,e_done,e_err,e_active;wire signed [31:0] e_si,e_mo;wire [5:0] e_sx,e_mx;wire [1:0] e_sc,e_mc;wire [31:0] e_ss,e_ms;wire e_sl,e_ml;wire [7:0] e_code;
+wire t_sv,t_sr,t_mv,t_mr,t_done,t_err,t_active;wire signed [31:0] t_si,t_mo;wire [5:0] t_sx,t_mx;wire [1:0] t_sc,t_mc;wire [31:0] t_ss,t_ms;wire t_sl,t_ml;wire [7:0] t_code;
+wire q_sv,q_sr,q_mv,q_mr,q_done,q_err,q_active;wire signed [31:0] q_si,q_mo;wire [5:0] q_sx,q_mx;wire [1:0] q_sc,q_mc;wire [31:0] q_ss,q_ms;wire q_sl,q_ml;wire [7:0] q_code;
+wire e_sv,e_sr,e_mv,e_mr,e_done,e_err,e_active;wire signed [31:0] e_si,e_mo;wire [5:0] e_sx,e_mx;wire [1:0] e_sc,e_mc;wire [31:0] e_ss,e_ms;wire e_sl,e_ml;wire [7:0] e_code;
 jpeg_transform transform(
  .clk(clk),
  .rst_n(rst_n),
@@ -389,7 +389,7 @@ jpeg_quant quant(
  .q_value(q_value));
 wire token_valid,token_ready,finish_valid,finish_ready;wire [31:0] token_bits;wire [5:0] token_nbits;
  wire [15:0] peek_bits;wire [4:0] available,consume_nbits;wire input_eof,consume_valid,consume_ready,decode_finish,b_done,b_err,b_active;wire [7:0] b_code;wire desc_ready;
-wire restart_valid,restart_ready;wire restart_pending /* verilator public_flat_rd */;wire [2:0] restart_expected;
+wire restart_valid,restart_ready;wire restart_pending;wire [2:0] restart_expected;
 jpeg_entropy entropy(
  .format(format),.restart_interval(restart_interval),
  .restart_valid(restart_valid),.restart_ready(restart_ready),.restart_expected(restart_expected),.segment_end(restart_pending),

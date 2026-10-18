@@ -11,7 +11,7 @@ Verilog-2001によるBaseline JPEGエンコーダー・デコーダー。YCbCr 4
 
 ## 実行
 
-Verilator、C++コンパイラ、Python 3、Pillowが必要。
+Questa Sim（vlog/vsim）、Python 3、Pillowが必要。
 
 ```sh
 make test

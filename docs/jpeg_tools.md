@@ -2,11 +2,11 @@
 
 更新日: 2026-10-06
 
-PNGをJPEGへエンコードし、JPEGをPNGへデコードするCLI。DCT/IDCT、量子化/逆量子化、Huffman、bitstream処理は既存の`jpeg_top` RTLをVerilatorで実行する。Pillowを圧縮・復号の代替には使わない。PNG入出力、RGB/YCbCr変換、サブサンプリング、JPEGヘッダ処理はCPU側の担当。
+PNGをJPEGへエンコードし、JPEGをPNGへデコードするCLI。DCT/IDCT、量子化/逆量子化、Huffman、bitstream処理は既存の`jpeg_top` RTLをQuesta Sim（`vsim`）で実行する。Pillowを圧縮・復号の代替には使わない。PNG入出力、RGB/YCbCr変換、サブサンプリング、JPEGヘッダ処理はCPU側の担当。
 
 ## ビルドと実行
 
-プロジェクトルートから実行する。Verilator、C++コンパイラ、Python 3、Pillowが必要。
+プロジェクトルートから実行する。Questa Sim（vsim/vlog）、Python 3、Pillowが必要。
 
 ```sh
 make jpeg-tools
@@ -45,9 +45,8 @@ Progressive、グレースケール、RGB/CMYK/YCCK JPEG、複数scan、16bit DQ
 | `tools/jpeg_encode.py`, `tools/jpeg_decode.py` | 個別CLI入口 |
 | `tools/jpeg_tool.py` | PNG入出力、色変換、JPEGヘッダ、ジョブ準備 |
 | `tools/jpeg_cpu.py` | 境界・形式・テーブル検査付きBaselineパーサーと検証用scan参照復号 |
-| `tools/jpeg_rtl.cpp` | 任意寸法のメモリ配置、APB設定、RTL開始、出力回収 |
-| `sim/jpeg_sim_bus.h` | 結合試験と共有するAPBドライバ・AXIメモリモデル |
-| `build/jpeg_tool/Vjpeg_top` | Verilator生成モデルとCPUドライバをリンクした実行ファイル |
+| `sim/jpeg_tool_tb.sv` | ファイルベースのジョブ実行（テーブル設定・メモリ展開・RTL実行・出力保存）を行うSystemVerilogテストベンチ |
+| `build/work/` | Questa Simコンパイル成果物（`jpeg_tool_tb` 等） |
 
 ジョブは一時ディレクトリに保存し、成功・失敗にかかわらず終了時に削除する。RTLのscanを受け取った後にJPEGファイルを組み立てる。decodeもRTLのplanar画素を回収してからPNGを保存する。異常時は非zero終了コードと理由を表示する。
 
@@ -60,7 +59,7 @@ make test-tools
 make test
 ```
 
-2026-10-06、Verilator 5.049 devel（v5.048-230-gde0236be2）で`make test-tools` PASS。seed=20261006。6 PNG encodeでscan byte一致、9 JPEG decodeで整数参照モデルから生成したRGB pixel一致、外部ライブラリによる生成JPEGの復号、テーブルID/成分ID変更、両CLI入口を確認。Progressive、グレースケール、EOI欠落、DRIとscanの不整合、quant範囲外、同一入出力パスの拒否を確認した。
+2026-10-06、Questa Simで`make test-tools` PASS。seed=20261006。6 PNG encodeでscan byte一致、9 JPEG decodeで整数参照モデルから生成したRGB pixel一致、外部ライブラリによる生成JPEGの復号、テーブルID/成分ID変更、両CLI入口を確認。Progressive、グレースケール、EOI欠落、DRIとscanの不整合、quant範囲外、同一入出力パスの拒否を確認した。
 
 [CLI実行ログ](validation/jpeg_tools.log)を保存する。共有ドライバとパーサーの変更は既存`make test`でも回帰検証し、全試験PASS。結果は[回帰ログ](validation/jpeg_tools_regression.log)に保存した。RTL自体の変更はないため、A4性能試験の再測定は行っていない。
 

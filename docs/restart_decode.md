@@ -15,7 +15,7 @@
 
 ## 実装と検証結果
 
-RTLのjpeg_apb/ctrl/top/entropy/bitstream、CPUパーサー、Verilator CLIを拡張した。JPEGデコードCLIの追加引数は不要で、入力DRIを自動設定する。エンコードは従来どおりRestartを生成しない。DRI以外の既存レジスタ配置、Progressiveなどの対応範囲は変えていない。
+RTLのjpeg_apb/ctrl/top/entropy/bitstream、CPUパーサー、CLIツールを拡張した。JPEGデコードCLIの追加引数は不要で、入力DRIを自動設定する。エンコードは従来どおりRestartを生成しない。DRI以外の既存レジスタ配置、Progressiveなどの対応範囲は変えていない。
 
 - lint: Verilog-2001、ADDR_W=64/ID_W=1と32/2でPASS（既存4種類の警告抑制のみ）。
 - bitstream: padding長0～7×RST番号0～7の64組、FF00、FF fill、marker保持中のstall、誤番号、不正padding、最終余計RST、FF FF 00の拒否をPASS。
@@ -33,7 +33,7 @@ RTLのjpeg_apb/ctrl/top/entropy/bitstream、CPUパーサー、Verilator CLIを�
 
 RGB差のPSNRは同じJPEGをRTLツールと外部ライブラリで復号した差で、元の非圧縮画像との画質ではない。444はIDCT/色変換の差を含む。乱数422/420の外部RGB比較はchroma補間差が大きく、PSNR約16～19 dBも含むが、整数モデルのnearest chroma結果とはpixel一致。画質受入しきい値の合否をこの数値だけで判定していない。
 
-[Restart CLI全測定](../tests/results/restart/report.json)、[入力生成](../tools/generate_restart_vectors.py)、[テストベンチ](../sim/top_test.cpp)、[CLI試験](../tools/test_restart_cli.py)、[結果画像](../tests/results/restart/README.md)。
+[Restart CLI全測定](../build/results/restart/report.json)、[入力生成](../tools/generate_restart_vectors.py)、[テストベンチ](../sim/top_tb.sv)、[CLI試験](../tools/test_restart_cli.py)。
 
 ## 再現
 
@@ -45,7 +45,7 @@ python3 tools/jpeg_decode.py tests/data/internet_five/cat.jpg build/cat.png
 python3 tools/jpeg_decode.py tests/data/internet_five/goldfish.jpg build/goldfish.png
 ```
 
-乱数seed=20261006（Restart入力）、20261005（AXI/bitstream）。Verilator 5.049 devel（v5.048-230-gde0236be2）。入力生成はCPUの検証用参照encoderを使う。製品ツールはDCT/IDCT、量子化、Huffman処理をRTLで実行する。公開写真を再圧縮・marker除去していない。
+乱数seed=20261006（Restart入力）、20261005（AXI/bitstream）。Questa Sim。入力生成はCPUの検証用参照encoderを使う。製品ツールはDCT/IDCT、量子化、Huffman処理をRTLで実行する。公開写真を再圧縮・marker除去していない。
 
 保存ログ: [lint/単体](validation/restart_unit.log)、[Restart CLI](validation/restart_tests.log)、[最終RTL固定/変動](validation/restart_top.log)、[既存回帰](validation/restart_regression.log)。
 
