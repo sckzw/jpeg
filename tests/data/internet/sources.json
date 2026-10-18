@@ -1,0 +1,52 @@
+[
+  {
+    "file": "example.png",
+    "role": "encoder input",
+    "author": "Wolfgang / W.",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:Example.png",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png",
+    "bytes": 2335,
+    "sha256": "69da5df214d45b808be7d5322ab4ad8eb00c032670af3006e2069e3478d4de53",
+    "dimensions": [
+      172,
+      178
+    ],
+    "mode": "P",
+    "progressive": false
+  },
+  {
+    "file": "flower_baseline.jpg",
+    "role": "decoder input (original 2005 version)",
+    "author": "David Crawshaw",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "page": "https://commons.wikimedia.org/wiki/File:JPEG_example_flower.jpg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/archive/3/3f/20170304154030%21JPEG_example_flower.jpg",
+    "bytes": 38506,
+    "sha256": "1df4b6ee917f070286b807d69211713c949f9b0e999ddcc49aa4e28f62ffcbba",
+    "dimensions": [
+      500,
+      477
+    ],
+    "mode": "RGB",
+    "progressive": false
+  },
+  {
+    "file": "flower.jpg",
+    "role": "unsupported progressive rejection",
+    "author": "David Crawshaw",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "page": "https://commons.wikimedia.org/wiki/File:JPEG_example_flower.jpg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg",
+    "bytes": 36287,
+    "sha256": "c160fa1bc488af7f48984bd627bc5cbc5a20b98eaaf11af92e99a206b376252d",
+    "dimensions": [
+      500,
+      477
+    ],
+    "mode": "RGB",
+    "progressive": true
+  }
+]

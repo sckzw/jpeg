@@ -1,0 +1,114 @@
+[
+  {
+    "file": "dice1.png",
+    "role": "encode",
+    "sampling": "444",
+    "page": "https://commons.wikimedia.org/wiki/File:PNG_transparency_demonstration_1.png",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png",
+    "author": "Daniel G., Ed g2s, CyberShadow",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "dimensions": [
+      800,
+      600
+    ],
+    "mode": "RGBA",
+    "bytes": 224566,
+    "sha256": "c4e870d358d64ce677e958c156d0e3fba466993d8e915fc81c5dc64937a9b696"
+  },
+  {
+    "file": "dice2.png",
+    "role": "encode",
+    "sampling": "422",
+    "page": "https://commons.wikimedia.org/wiki/File:PNG_transparency_demonstration_2.png",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/9/9a/PNG_transparency_demonstration_2.png",
+    "author": "Daniel G., Ed g2s, Nguyễn Trí Minh Hoàng",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "dimensions": [
+      997,
+      747
+    ],
+    "mode": "RGBA",
+    "bytes": 296035,
+    "sha256": "960c728ef69ae1b0f0772be8832fef5c804bb3555ad074e0c4c65e837b5062e5"
+  },
+  {
+    "file": "color_circle.png",
+    "role": "encode",
+    "sampling": "420",
+    "page": "https://commons.wikimedia.org/wiki/File:Color_circle_(RGB).png",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png",
+    "author": "Crossover1370 (SVG), LaundryPizza03 (rasterization)",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "mode": "RGBA",
+    "bytes": 984433,
+    "sha256": "9de8034d0aa539bf18fcefb0527d00747456fa60b7757ffec43280a8711c0a27"
+  },
+  {
+    "file": "hopper.jpg",
+    "role": "decode",
+    "page": "https://github.com/python-pillow/Pillow/blob/main/Tests/images/hopper.jpg",
+    "download": "https://raw.githubusercontent.com/python-pillow/Pillow/main/Tests/images/hopper.jpg",
+    "source_project": "Pillow",
+    "upstream_license_url": "https://github.com/python-pillow/Pillow/blob/main/LICENSE",
+    "dimensions": [
+      128,
+      128
+    ],
+    "mode": "RGB",
+    "bytes": 6412,
+    "sha256": "ffe89a0ab0e94114e10777e7313d7fa83d634e34ebc2ea7479085cffa504c920"
+  },
+  {
+    "file": "testorig.jpg",
+    "role": "decode",
+    "page": "https://github.com/libjpeg-turbo/libjpeg-turbo/blob/main/testimages/testorig.jpg",
+    "download": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/testimages/testorig.jpg",
+    "source_project": "libjpeg-turbo",
+    "upstream_license_url": "https://github.com/libjpeg-turbo/libjpeg-turbo/blob/main/LICENSE.md",
+    "dimensions": [
+      227,
+      149
+    ],
+    "mode": "RGB",
+    "bytes": 5770,
+    "sha256": "acc6ec555d41d15b368320edaa3b20958ee6fa97cb6e4a18d1213d5ae8bec73b"
+  },
+  {
+    "file": "cat.jpg",
+    "role": "decode restart",
+    "page": "https://commons.wikimedia.org/wiki/File:Cat03.jpg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg",
+    "author": "Fir0002/Flagstaffotos",
+    "license": "GFDL 1.2",
+    "license_url": "https://www.gnu.org/licenses/old-licenses/fdl-1.2.html",
+    "dimensions": [
+      1600,
+      1598
+    ],
+    "mode": "RGB",
+    "bytes": 279603,
+    "sha256": "ec8ff0a6954a5f54e4ad246f0a788d076f675e457bca16a04248718cca3fe631"
+  },
+  {
+    "file": "goldfish.jpg",
+    "role": "decode restart",
+    "page": "https://commons.wikimedia.org/wiki/File:Goldfish3.jpg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Goldfish3.jpg",
+    "author": "Heptagon (Commons attribution)",
+    "license": "Public domain",
+    "dimensions": [
+      784,
+      840
+    ],
+    "mode": "RGB",
+    "bytes": 560797,
+    "sha256": "cccb9c9bd7d284473b2da59cbdf06a4513ef1e989dd1e72f6abcaf03835f050b"
+  }
+]

@@ -1,0 +1,64 @@
+fmt0_ri1 restart decode cycles=31113 status=PASS code=0
+fmt0_ri2 restart decode cycles=31101 status=PASS code=0
+fmt0_ri3 restart decode cycles=31107 status=PASS code=0
+fmt0_ri65535 restart decode cycles=31107 status=PASS code=0
+fmt1_ri1 restart decode cycles=20952 status=PASS code=0
+fmt1_ri2 restart decode cycles=20952 status=PASS code=0
+fmt1_ri3 restart decode cycles=20958 status=PASS code=0
+fmt1_ri65535 restart decode cycles=20955 status=PASS code=0
+fmt2_ri1 restart decode cycles=18918 status=PASS code=0
+fmt2_ri2 restart decode cycles=18912 status=PASS code=0
+fmt2_ri3 restart decode cycles=18918 status=PASS code=0
+fmt2_ri65535 restart decode cycles=18915 status=PASS code=0
+exact_final0 restart decode cycles=1914 status=PASS code=0
+exact_final1 restart decode cycles=2328 status=PASS code=0
+exact_final2 restart decode cycles=3141 status=PASS code=0
+marker_fill restart decode cycles=18915 status=PASS code=0
+flat restart decode cycles=2415 status=PASS code=0
+marker_4k restart decode cycles=5901 status=PASS code=0
+wrong_number restart decode cycles=348 status=expected error code=6
+early_marker restart decode cycles=147 status=expected error code=6
+late_marker restart decode cycles=348 status=expected error code=10
+bad_padding restart decode cycles=348 status=expected error code=10
+missing_marker restart decode cycles=348 status=expected error code=10
+truncated_interval restart decode cycles=351 status=expected error code=5
+truncated_ff restart decode cycles=153 status=expected error code=6
+unexpected_final restart decode cycles=1134 status=expected error code=6
+interval_zero restart decode cycles=153 status=expected error code=6
+interval_too_long restart decode cycles=351 status=expected error code=6
+interval_too_short restart decode cycles=702 status=expected error code=10
+fmt2_ri1 restart decode cycles=1316 status=expected error code=9
+fmt2_ri1 restart decode cycles=18918 status=PASS code=0
+PASS 29 restart vectors, MCU 444/422/420, sequence wrap, padding/EOF/errors, stop/recovery, encode config rejection
+fmt0_ri1 restart decode cycles=31104 status=PASS code=0
+fmt0_ri2 restart decode cycles=31161 status=PASS code=0
+fmt0_ri3 restart decode cycles=31137 status=PASS code=0
+fmt0_ri65535 restart decode cycles=31104 status=PASS code=0
+fmt1_ri1 restart decode cycles=20895 status=PASS code=0
+fmt1_ri2 restart decode cycles=20985 status=PASS code=0
+fmt1_ri3 restart decode cycles=21063 status=PASS code=0
+fmt1_ri65535 restart decode cycles=20949 status=PASS code=0
+fmt2_ri1 restart decode cycles=18891 status=PASS code=0
+fmt2_ri2 restart decode cycles=18921 status=PASS code=0
+fmt2_ri3 restart decode cycles=19023 status=PASS code=0
+fmt2_ri65535 restart decode cycles=18927 status=PASS code=0
+exact_final0 restart decode cycles=1995 status=PASS code=0
+exact_final1 restart decode cycles=2307 status=PASS code=0
+exact_final2 restart decode cycles=3159 status=PASS code=0
+marker_fill restart decode cycles=18984 status=PASS code=0
+flat restart decode cycles=2466 status=PASS code=0
+marker_4k restart decode cycles=5889 status=PASS code=0
+wrong_number restart decode cycles=342 status=expected error code=6
+early_marker restart decode cycles=198 status=expected error code=6
+late_marker restart decode cycles=384 status=expected error code=10
+bad_padding restart decode cycles=387 status=expected error code=10
+missing_marker restart decode cycles=324 status=expected error code=10
+truncated_interval restart decode cycles=399 status=expected error code=5
+truncated_ff restart decode cycles=144 status=expected error code=6
+unexpected_final restart decode cycles=1131 status=expected error code=6
+interval_zero restart decode cycles=183 status=expected error code=6
+interval_too_long restart decode cycles=372 status=expected error code=6
+interval_too_short restart decode cycles=747 status=expected error code=10
+fmt2_ri1 restart decode cycles=1388 status=expected error code=9
+fmt2_ri1 restart decode cycles=18966 status=PASS code=0
+PASS 29 restart vectors, MCU 444/422/420, sequence wrap, padding/EOF/errors, stop/recovery, encode config rejection

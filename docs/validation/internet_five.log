@@ -1,0 +1,26 @@
+python3 tools/test_internet_five.py
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_encode.py /home/shuichi/verilog/jpeg/tests/data/internet_five/dice1.png /home/shuichi/verilog/jpeg/tests/results/internet_five/dice1_encoded.jpg --quant 16 --sampling 444
+RTL encode cycles=4568094 output_bytes=62158
+JPEG: /home/shuichi/verilog/jpeg/tests/results/internet_five/dice1_encoded.jpg (800x600, 444, Q=16, 62606 bytes)
+ENCODER dice1.png {"max_difference": 30, "mean_absolute_difference": 1.4203923611111111, "mse": 3.968159027777778, "psnr_db": 42.14491292269233}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_encode.py /home/shuichi/verilog/jpeg/tests/data/internet_five/dice2.png /home/shuichi/verilog/jpeg/tests/results/internet_five/dice2_encoded.jpg --quant 16 --sampling 422
+RTL encode cycles=4809267 output_bytes=104684
+JPEG: /home/shuichi/verilog/jpeg/tests/results/internet_five/dice2_encoded.jpg (997x747, 422, Q=16, 105132 bytes)
+ENCODER dice2.png {"max_difference": 26, "mean_absolute_difference": 1.7175623255308092, "mse": 5.7361374619172105, "psnr_db": 40.54460810565769}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_encode.py /home/shuichi/verilog/jpeg/tests/data/internet_five/color_circle.png /home/shuichi/verilog/jpeg/tests/results/internet_five/color_circle_encoded.jpg --quant 16 --sampling 420
+RTL encode cycles=19956300 output_bytes=200362
+JPEG: /home/shuichi/verilog/jpeg/tests/results/internet_five/color_circle_encoded.jpg (2048x2048, 420, Q=16, 200810 bytes)
+ENCODER color_circle.png {"max_difference": 91, "mean_absolute_difference": 1.2363769213358562, "mse": 4.638619263966878, "psnr_db": 41.46691633605468}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/internet_five/hopper.jpg /home/shuichi/verilog/jpeg/tests/results/internet_five/hopper_rtl.png
+RTL decode cycles=78561 output_bytes=24576
+PNG: /home/shuichi/verilog/jpeg/tests/results/internet_five/hopper_rtl.png (128x128)
+DECODER hopper.jpg {"max_difference": 43, "mean_absolute_difference": 2.1272379557291665, "mse": 15.7359619140625, "psnr_db": 36.161870650835056}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/internet_five/testorig.jpg /home/shuichi/verilog/jpeg/tests/results/internet_five/testorig_rtl.png
+RTL decode cycles=183240 output_bytes=50923
+PNG: /home/shuichi/verilog/jpeg/tests/results/internet_five/testorig_rtl.png (227x149)
+DECODER testorig.jpg {"max_difference": 34, "mean_absolute_difference": 1.587401078161803, "mse": 7.372360031142517, "psnr_db": 39.45473824917657}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/internet_five/cat.jpg /home/shuichi/verilog/jpeg/tests/results/internet_five/cat_rejected.png
+ERROR: restart intervals unsupported
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/internet_five/goldfish.jpg /home/shuichi/verilog/jpeg/tests/results/internet_five/goldfish_rejected.png
+ERROR: restart intervals unsupported
+PASS 5 additional internet images: 3 RTL encodes/external decodes, 2 independent RTL decodes; 2 extra Restart rejection cases

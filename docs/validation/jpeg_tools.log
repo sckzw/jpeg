@@ -1,0 +1,45 @@
+mkdir -p build/jpeg_tool
+verilator --cc --exe --build -j 2 --top-module jpeg_top -Irtl -Wall -Wno-BLKSEQ -Wno-UNUSEDSIGNAL -Wno-DECLFILENAME -Wno-PINCONNECTEMPTY --Mdir build/jpeg_tool rtl/jpeg_apb.v rtl/jpeg_bitstream.v rtl/jpeg_block_ram.v rtl/jpeg_block_stream.v rtl/jpeg_ctrl.v rtl/jpeg_dma_read.v rtl/jpeg_dma_write.v rtl/jpeg_entropy.v rtl/jpeg_input_fifo.v rtl/jpeg_quant.v rtl/jpeg_repack.v rtl/jpeg_stream_fifo.v rtl/jpeg_tables.v rtl/jpeg_top.v rtl/jpeg_transform.v /home/shuichi/verilog/jpeg/tools/jpeg_rtl.cpp -CFLAGS '-O2'
+make[1]: Entering directory '/home/shuichi/verilog/jpeg/build/jpeg_tool'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -Os  -c -o jpeg_rtl.o /home/shuichi/verilog/jpeg/tools/jpeg_rtl.cpp
+g++    jpeg_rtl.o verilated.o verilated_dpi.o verilated_threads.o Vjpeg_top__ALL.a    -pthread -lpthread -latomic   -o Vjpeg_top
+make[1]: Leaving directory '/home/shuichi/verilog/jpeg/build/jpeg_tool'
+- V e r i l a t i o n   R e p o r t: Verilator 5.049 devel rev v5.048-230-gde0236be2
+- Verilator: Built from 0.000 MB sources in 0 modules, into 0.000 MB in 0 C++ files needing 0.000 MB
+- Verilator: Walltime 2.468 s (elab=0.000, cvt=0.000, bld=2.466); cpu 0.002 s on 2 threads; allocated 30.668 MB
+python3 tools/test_jpeg_tool.py
+RTL encode cycles=1215 output_bytes=8
+RTL decode cycles=1125 output_bytes=3
+RTL encode cycles=4254 output_bytes=808
+RTL decode cycles=4317 output_bytes=663
+RTL encode cycles=3852 output_bytes=674
+RTL decode cycles=3918 output_bytes=455
+RTL encode cycles=3036 output_bytes=415
+RTL decode cycles=3117 output_bytes=347
+RTL encode cycles=2001 output_bytes=18
+RTL decode cycles=1779 output_bytes=131
+RTL encode cycles=8016 output_bytes=3608
+RTL decode cycles=8019 output_bytes=2304
+RTL decode cycles=7983 output_bytes=2304
+RTL decode cycles=5547 output_bytes=1536
+RTL decode cycles=5508 output_bytes=1152
+RTL encode cycles=4254 output_bytes=808
+JPEG: /tmp/jpeg-cli-test-qldwtr4y/entry.jpg (17x13, 444, Q=16, 1256 bytes)
+RTL decode cycles=4317 output_bytes=663
+PNG: /tmp/jpeg-cli-test-qldwtr4y/entry.png (17x13)
+JPEG: /tmp/jpeg-cli-test-qldwtr4y/one.jpg (1x1, 444, Q=1, 456 bytes)
+PNG: /tmp/jpeg-cli-test-qldwtr4y/one_out.png (1x1)
+JPEG: /tmp/jpeg-cli-test-qldwtr4y/rgba.jpg (17x13, 444, Q=16, 1256 bytes)
+PNG: /tmp/jpeg-cli-test-qldwtr4y/rgba_out.png (17x13)
+JPEG: /tmp/jpeg-cli-test-qldwtr4y/odd422.jpg (17x13, 422, Q=8, 1122 bytes)
+PNG: /tmp/jpeg-cli-test-qldwtr4y/odd422_out.png (17x13)
+JPEG: /tmp/jpeg-cli-test-qldwtr4y/odd420.jpg (17x13, 420, Q=16, 863 bytes)
+PNG: /tmp/jpeg-cli-test-qldwtr4y/odd420_out.png (17x13)
+JPEG: /tmp/jpeg-cli-test-qldwtr4y/largeq.jpg (9x9, 420, Q=255, 466 bytes)
+PNG: /tmp/jpeg-cli-test-qldwtr4y/largeq_out.png (9x9)
+JPEG: /tmp/jpeg-cli-test-qldwtr4y/dense.jpg (32x24, 444, Q=1, 4056 bytes)
+PNG: /tmp/jpeg-cli-test-qldwtr4y/dense_out.png (32x24)
+PNG: /tmp/jpeg-cli-test-qldwtr4y/external0.png (32x24)
+PNG: /tmp/jpeg-cli-test-qldwtr4y/external1.png (32x24)
+PNG: /tmp/jpeg-cli-test-qldwtr4y/external2.png (32x24)
+PASS CLI: 6 PNG encodes byte-exact, 9 JPEG decodes pixel-exact, external decode, remapped table IDs, entry scripts and rejection cases

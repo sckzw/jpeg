@@ -1,0 +1,67 @@
+[
+  {
+    "name": "flat",
+    "max_difference": 0,
+    "mse": 0.0,
+    "psnr_db": null,
+    "note": "Pillow/libjpeg direct YCbCr decode (draft mode), no RGB roundtrip"
+  },
+  {
+    "name": "edge444",
+    "max_difference": 1,
+    "mse": 0.2368024132730015,
+    "psnr_db": 54.38694236863449,
+    "note": "Pillow/libjpeg direct YCbCr decode (draft mode), no RGB roundtrip"
+  },
+  {
+    "name": "edge422",
+    "decode": "PASS",
+    "note": "chroma upsampling differs; no direct planar metric"
+  },
+  {
+    "name": "edge420",
+    "decode": "PASS",
+    "note": "chroma upsampling differs; no direct planar metric"
+  },
+  {
+    "name": "q255",
+    "decode": "PASS",
+    "note": "chroma upsampling differs; no direct planar metric"
+  },
+  {
+    "name": "dense",
+    "max_difference": 1,
+    "mse": 0.21875,
+    "psnr_db": 54.731322991735595,
+    "note": "Pillow/libjpeg direct YCbCr decode (draft mode), no RGB roundtrip"
+  },
+  {
+    "name": "gradient",
+    "max_difference": 1,
+    "mse": 0.12977430555555555,
+    "psnr_db": 56.998916472946554,
+    "note": "Pillow/libjpeg direct YCbCr decode (draft mode), no RGB roundtrip"
+  },
+  {
+    "name": "tiny444",
+    "max_difference": 0,
+    "mse": 0.0,
+    "psnr_db": null,
+    "note": "Pillow/libjpeg direct YCbCr decode (draft mode), no RGB roundtrip"
+  },
+  {
+    "name": "tiny420",
+    "decode": "PASS",
+    "note": "chroma upsampling differs; no direct planar metric"
+  },
+  {
+    "name": "small422",
+    "decode": "PASS",
+    "note": "chroma upsampling differs; no direct planar metric"
+  },
+  {
+    "name": "small420",
+    "decode": "PASS",
+    "note": "chroma upsampling differs; no direct planar metric"
+  }
+]

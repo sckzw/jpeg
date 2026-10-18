@@ -1,0 +1,170 @@
+python3 tools/generate_rtl_tables.py --check
+PASS constant ROMs
+verilator --lint-only --language 1364-2001 --top-module jpeg_top -Irtl -Wall -Wno-BLKSEQ -Wno-UNUSEDSIGNAL -Wno-DECLFILENAME -Wno-PINCONNECTEMPTY rtl/jpeg_apb.v rtl/jpeg_bitstream.v rtl/jpeg_block_ram.v rtl/jpeg_block_stream.v rtl/jpeg_ctrl.v rtl/jpeg_dma_read.v rtl/jpeg_dma_write.v rtl/jpeg_entropy.v rtl/jpeg_input_fifo.v rtl/jpeg_quant.v rtl/jpeg_repack.v rtl/jpeg_stream_fifo.v rtl/jpeg_tables.v rtl/jpeg_top.v rtl/jpeg_transform.v
+- V e r i l a t i o n   R e p o r t: Verilator 5.049 devel rev v5.048-230-gde0236be2
+- Verilator: Built from 0.690 MB sources in 19 modules, into 1.370 MB in 4 C++ files needing 0.000 MB
+- Verilator: Walltime 0.361 s (elab=0.031, cvt=0.260, bld=0.000); cpu 0.352 s on 1 threads; allocated 49.020 MB
+verilator --lint-only --language 1364-2001 --top-module jpeg_top -GADDR_W=32 -GID_W=2 -Irtl -Wall -Wno-BLKSEQ -Wno-UNUSEDSIGNAL -Wno-DECLFILENAME -Wno-PINCONNECTEMPTY rtl/jpeg_apb.v rtl/jpeg_bitstream.v rtl/jpeg_block_ram.v rtl/jpeg_block_stream.v rtl/jpeg_ctrl.v rtl/jpeg_dma_read.v rtl/jpeg_dma_write.v rtl/jpeg_entropy.v rtl/jpeg_input_fifo.v rtl/jpeg_quant.v rtl/jpeg_repack.v rtl/jpeg_stream_fifo.v rtl/jpeg_tables.v rtl/jpeg_top.v rtl/jpeg_transform.v
+- V e r i l a t i o n   R e p o r t: Verilator 5.049 devel rev v5.048-230-gde0236be2
+- Verilator: Built from 0.690 MB sources in 19 modules, into 1.368 MB in 4 C++ files needing 0.000 MB
+- Verilator: Walltime 0.416 s (elab=0.034, cvt=0.302, bld=0.000); cpu 0.405 s on 1 threads; allocated 49.016 MB
+mkdir -p build/numeric
+verilator --cc --exe --build -j 2 --top-module numeric_top -Irtl -Wall -Wno-BLKSEQ -Wno-UNUSEDSIGNAL -Wno-DECLFILENAME -Wno-PINCONNECTEMPTY --Mdir build/numeric sim/numeric_top.v rtl/jpeg_quant.v rtl/jpeg_transform.v /home/shuichi/verilog/jpeg/sim/numeric_test.cpp -CFLAGS '-O2'
+make[1]: Entering directory '/home/shuichi/verilog/jpeg/build/numeric'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -Os  -c -o numeric_test.o /home/shuichi/verilog/jpeg/sim/numeric_test.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vnumeric_top.cpp Vnumeric_top___024root__0.cpp Vnumeric_top___024root__Slow.cpp Vnumeric_top___024root__0__Slow.cpp Vnumeric_top__Syms__Slow.cpp > Vnumeric_top__ALL.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -c -o Vnumeric_top__ALL.o Vnumeric_top__ALL.cpp
+g++    numeric_test.o verilated.o verilated_threads.o Vnumeric_top__ALL.a    -pthread -lpthread -latomic   -o Vnumeric_top
+rm Vnumeric_top__ALL.verilator_deplist.tmp
+make[1]: Leaving directory '/home/shuichi/verilog/jpeg/build/numeric'
+- V e r i l a t i o n   R e p o r t: Verilator 5.049 devel rev v5.048-230-gde0236be2
+- Verilator: Built from 0.068 MB sources in 4 modules, into 0.528 MB in 5 C++ files needing 0.004 MB
+- Verilator: Walltime 9.304 s (elab=0.009, cvt=0.165, bld=9.084); cpu 0.234 s on 2 threads; allocated 52.062 MB
+mkdir -p build/dma
+verilator --cc --exe --build -j 2 --top-module dma_top -Irtl -Wall -Wno-BLKSEQ -Wno-UNUSEDSIGNAL -Wno-DECLFILENAME -Wno-PINCONNECTEMPTY --Mdir build/dma sim/dma_top.v rtl/jpeg_dma_read.v rtl/jpeg_dma_write.v /home/shuichi/verilog/jpeg/sim/dma_test.cpp -CFLAGS '-O2'
+make[1]: Entering directory '/home/shuichi/verilog/jpeg/build/dma'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -Os  -c -o dma_test.o /home/shuichi/verilog/jpeg/sim/dma_test.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vdma_top.cpp Vdma_top___024root__0.cpp Vdma_top___024root__Slow.cpp Vdma_top___024root__0__Slow.cpp Vdma_top__Syms__Slow.cpp > Vdma_top__ALL.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -c -o Vdma_top__ALL.o Vdma_top__ALL.cpp
+g++    dma_test.o verilated.o verilated_threads.o Vdma_top__ALL.a    -pthread -lpthread -latomic   -o Vdma_top
+rm Vdma_top__ALL.verilator_deplist.tmp
+make[1]: Leaving directory '/home/shuichi/verilog/jpeg/build/dma'
+- V e r i l a t i o n   R e p o r t: Verilator 5.049 devel rev v5.048-230-gde0236be2
+- Verilator: Built from 0.071 MB sources in 4 modules, into 0.092 MB in 5 C++ files needing 0.000 MB
+- Verilator: Walltime 10.403 s (elab=0.004, cvt=0.022, bld=10.361); cpu 0.045 s on 2 threads; allocated 41.562 MB
+mkdir -p build/apb
+verilator --binary --timing -j 2 --top-module apb_tb -Irtl -Wall -Wno-BLKSEQ -Wno-UNUSEDSIGNAL -Wno-DECLFILENAME -Wno-PINCONNECTEMPTY --Mdir build/apb sim/apb_tb.sv rtl/jpeg_apb.v
+make[1]: Entering directory '/home/shuichi/verilog/jpeg/build/apb'
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -o verilated_timing.o /usr/local/share/verilator/include/verilated_timing.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vapb_tb.cpp Vapb_tb___024root__0.cpp Vapb_tb__main.cpp Vapb_tb___024root__Slow.cpp Vapb_tb___024root__0__Slow.cpp Vapb_tb__Syms__Slow.cpp > Vapb_tb__ALL.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -o Vapb_tb__ALL.o Vapb_tb__ALL.cpp
+g++    verilated.o verilated_timing.o verilated_threads.o Vapb_tb__ALL.a    -pthread -lpthread -latomic   -o Vapb_tb
+rm Vapb_tb__ALL.verilator_deplist.tmp
+make[1]: Leaving directory '/home/shuichi/verilog/jpeg/build/apb'
+- V e r i l a t i o n   R e p o r t: Verilator 5.049 devel rev v5.048-230-gde0236be2
+- Verilator: Built from 0.054 MB sources in 3 modules, into 0.246 MB in 6 C++ files needing 0.000 MB
+- Verilator: Walltime 9.230 s (elab=0.005, cvt=0.080, bld=9.118); cpu 0.114 s on 2 threads; allocated 48.559 MB
+build/numeric/Vnumeric_top
+quant mode=0 vectors=18360 cycles=28844
+quant mode=1 vectors=18360 cycles=29080
+transform mode=0 blocks=128 cycles=28685
+transform mode=1 blocks=128 cycles=28785
+PASS numeric vectors=53104 seed=20261005
+build/bitstream/Vjpeg_bitstream
+PASS bitstream 100 roundtrips bytes=16806 seed=20261005
+build/storage/Vstorage_tb
+PASS FIFO wrap/full/used/keep/last words=979; two-bank RAM, zigzag, synchronous response stalls
+- sim/storage_tb.sv:42: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.049 devel
+- Verilator: $finish at 16ns; walltime 0.006 s; speed 2.852 us/s
+- Verilator: cpu 0.006 s on 1 threads; allocated 6 MB
+build/dma/Vdma_top
+PASS DMA 32x16-beat read/write bursts latency=128 max_outstanding=8,4 cycles=1454
+PASS DMA 32x16-beat read/write bursts latency=512 max_outstanding=8,8 cycles=2514
+build/width/Vwidth_tb
+PASS repack/unpack 30 frames, final keeps 1..8, FIFO full and last-byte ownership
+- sim/width_tb.sv:29: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.049 devel
+- Verilator: $finish at 217ns; walltime 0.055 s; speed 3.939 us/s
+- Verilator: cpu 0.055 s on 1 threads; allocated 6 MB
+build/apb/Vapb_tb
+PASS APB 64-bit settings/snapshot rollover, pulses, busy restrictions, table wait/index
+- sim/apb_tb.sv:33: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.049 devel
+- Verilator: $finish at 152ps; walltime 0.000 s; speed 1.661 us/s
+- Verilator: cpu 0.000 s on 1 threads; allocated 6 MB
+python3 tools/generate_vectors.py
+generated 11 vectors, seed=20261005
+python3 tools/check_interop.py --generate
+generated 3 Pillow baseline JPEG decode vectors
+mkdir -p build/top
+verilator --cc --exe --build -j 2 --top-module jpeg_top -Irtl -Wall -Wno-BLKSEQ -Wno-UNUSEDSIGNAL -Wno-DECLFILENAME -Wno-PINCONNECTEMPTY --Mdir build/top rtl/jpeg_apb.v rtl/jpeg_bitstream.v rtl/jpeg_block_ram.v rtl/jpeg_block_stream.v rtl/jpeg_ctrl.v rtl/jpeg_dma_read.v rtl/jpeg_dma_write.v rtl/jpeg_entropy.v rtl/jpeg_input_fifo.v rtl/jpeg_quant.v rtl/jpeg_repack.v rtl/jpeg_stream_fifo.v rtl/jpeg_tables.v rtl/jpeg_top.v rtl/jpeg_transform.v /home/shuichi/verilog/jpeg/sim/top_test.cpp -CFLAGS '-O2'
+make[1]: Entering directory '/home/shuichi/verilog/jpeg/build/top'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -Os  -c -o top_test.o /home/shuichi/verilog/jpeg/sim/top_test.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -c -o verilated_dpi.o /usr/local/share/verilator/include/verilated_dpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -x c++-header Vjpeg_top__pch.h -o Vjpeg_top__pch.h.fast.gch
+ccache g++   -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -x c++-header Vjpeg_top__pch.h -o Vjpeg_top__pch.h.slow.gch
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -include Vjpeg_top__pch.h.fast -c Vjpeg_top.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -include Vjpeg_top__pch.h.fast -c Vjpeg_top___024root__0.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -include Vjpeg_top__pch.h.fast -c Vjpeg_top___024root__1.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -include Vjpeg_top__pch.h.fast -c Vjpeg_top__Dpi.cpp
+ccache g++   -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -include Vjpeg_top__pch.h.slow -c Vjpeg_top__ConstPool__0__Slow.cpp
+ccache g++   -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -include Vjpeg_top__pch.h.slow -c Vjpeg_top___024root__Slow.cpp
+ccache g++   -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -include Vjpeg_top__pch.h.slow -c Vjpeg_top___024root__0__Slow.cpp
+ccache g++   -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -include Vjpeg_top__pch.h.slow -c Vjpeg_top__Syms__Slow.cpp
+g++    top_test.o verilated.o verilated_dpi.o verilated_threads.o Vjpeg_top__ALL.a    -pthread -lpthread -latomic   -o Vjpeg_top
+rm Vjpeg_top__ALL.verilator_deplist.tmp
+make[1]: Leaving directory '/home/shuichi/verilog/jpeg/build/top'
+- V e r i l a t i o n   R e p o r t: Verilator 5.049 devel rev v5.048-230-gde0236be2
+- Verilator: Built from 0.671 MB sources in 19 modules, into 1.506 MB in 8 C++ files needing 0.006 MB
+- Verilator: Walltime 24.708 s (elab=0.027, cvt=0.321, bld=24.284); cpu 0.466 s on 2 threads; allocated 61.062 MB
+build/top/Vjpeg_top
+flat encode cycles=1182 scan_bytes=5
+flat decode cycles=1194 samples=192
+edge444 encode cycles=4266 scan_bytes=983
+edge444 decode cycles=4320 samples=663
+edge422 encode cycles=3861 scan_bytes=698
+edge422 decode cycles=3918 samples=455
+edge420 encode cycles=3042 scan_bytes=542
+edge420 decode cycles=3126 samples=347
+q255 encode cycles=2025 scan_bytes=42
+q255 decode cycles=1782 samples=131
+dense encode cycles=3144 scan_bytes=1322
+dense decode cycles=3144 samples=768
+gradient encode cycles=7917 scan_bytes=1004
+gradient decode cycles=7899 samples=2304
+tiny444 encode cycles=1218 scan_bytes=8
+tiny444 decode cycles=1122 samples=3
+tiny420 encode cycles=1860 scan_bytes=11
+tiny420 decode cycles=1731 samples=3
+small422 encode cycles=1767 scan_bytes=243
+small422 decode cycles=1482 samples=75
+small420 encode cycles=2376 scan_bytes=237
+small420 decode cycles=1863 samples=59
+gradient encode cycles=7911 scan_bytes=1004
+gradient decode cycles=7896 samples=2304
+external0 decode cycles=4293 scan_bytes=371
+external1 decode cycles=3888 scan_bytes=260
+external2 decode cycles=3096 scan_bytes=196
+PASS APB, partial commit, configuration, capacity, EOF, marker, AXI faults, held AR/AW/W stop/drain
+PASS top vectors; max_read_outstanding=8 max_write_outstanding=8 nominal_mean_response_cycles=128
+build/top/Vjpeg_top --variable
+flat encode cycles=1275 scan_bytes=5
+flat decode cycles=1194 samples=192
+edge444 encode cycles=4941 scan_bytes=983
+edge444 decode cycles=4350 samples=663
+edge422 encode cycles=4509 scan_bytes=698
+edge422 decode cycles=3978 samples=455
+edge420 encode cycles=3498 scan_bytes=542
+edge420 decode cycles=3090 samples=347
+q255 encode cycles=2271 scan_bytes=42
+q255 decode cycles=1821 samples=131
+dense encode cycles=3360 scan_bytes=1322
+dense decode cycles=3189 samples=768
+gradient encode cycles=8988 scan_bytes=1004
+gradient decode cycles=7926 samples=2304
+tiny444 encode cycles=1257 scan_bytes=8
+tiny444 decode cycles=1080 samples=3
+tiny420 encode cycles=2055 scan_bytes=11
+tiny420 decode cycles=1725 samples=3
+small422 encode cycles=1917 scan_bytes=243
+small422 decode cycles=1563 samples=75
+small420 encode cycles=2706 scan_bytes=237
+small420 decode cycles=1923 samples=59
+gradient encode cycles=9015 scan_bytes=1004
+gradient decode cycles=7986 samples=2304
+external0 decode cycles=4305 scan_bytes=371
+external1 decode cycles=3957 scan_bytes=260
+external2 decode cycles=3039 scan_bytes=196
+PASS APB, partial commit, configuration, capacity, EOF, marker, AXI faults, held AR/AW/W stop/drain
+PASS top vectors; max_read_outstanding=8 max_write_outstanding=8 nominal_mean_response_cycles=128.607
+python3 tools/check_interop.py
+PASS external decode for 11 actual RTL JPEGs; metrics build/interop.json

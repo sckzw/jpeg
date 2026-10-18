@@ -1,0 +1,159 @@
+python3 tools/generate_rtl_tables.py --check
+PASS constant ROMs
+verilator --lint-only --language 1364-2001 --top-module jpeg_top -Irtl -Wall -Wno-BLKSEQ -Wno-UNUSEDSIGNAL -Wno-DECLFILENAME -Wno-PINCONNECTEMPTY rtl/jpeg_apb.v rtl/jpeg_bitstream.v rtl/jpeg_block_ram.v rtl/jpeg_block_stream.v rtl/jpeg_ctrl.v rtl/jpeg_dma_read.v rtl/jpeg_dma_write.v rtl/jpeg_entropy.v rtl/jpeg_input_fifo.v rtl/jpeg_quant.v rtl/jpeg_repack.v rtl/jpeg_stream_fifo.v rtl/jpeg_tables.v rtl/jpeg_top.v rtl/jpeg_transform.v
+- V e r i l a t i o n   R e p o r t: Verilator 5.049 devel rev v5.048-230-gde0236be2
+- Verilator: Built from 0.718 MB sources in 19 modules, into 1.384 MB in 4 C++ files needing 0.000 MB
+- Verilator: Walltime 1.161 s (elab=0.080, cvt=0.787, bld=0.000); cpu 0.991 s on 1 threads; allocated 49.016 MB
+verilator --lint-only --language 1364-2001 --top-module jpeg_top -GADDR_W=32 -GID_W=2 -Irtl -Wall -Wno-BLKSEQ -Wno-UNUSEDSIGNAL -Wno-DECLFILENAME -Wno-PINCONNECTEMPTY rtl/jpeg_apb.v rtl/jpeg_bitstream.v rtl/jpeg_block_ram.v rtl/jpeg_block_stream.v rtl/jpeg_ctrl.v rtl/jpeg_dma_read.v rtl/jpeg_dma_write.v rtl/jpeg_entropy.v rtl/jpeg_input_fifo.v rtl/jpeg_quant.v rtl/jpeg_repack.v rtl/jpeg_stream_fifo.v rtl/jpeg_tables.v rtl/jpeg_top.v rtl/jpeg_transform.v
+- V e r i l a t i o n   R e p o r t: Verilator 5.049 devel rev v5.048-230-gde0236be2
+- Verilator: Built from 0.718 MB sources in 19 modules, into 1.382 MB in 4 C++ files needing 0.000 MB
+- Verilator: Walltime 0.996 s (elab=0.096, cvt=0.648, bld=0.000); cpu 0.870 s on 1 threads; allocated 49.016 MB
+mkdir -p build/numeric
+verilator --cc --exe --build -j 2 --top-module numeric_top -Irtl -Wall -Wno-BLKSEQ -Wno-UNUSEDSIGNAL -Wno-DECLFILENAME -Wno-PINCONNECTEMPTY --Mdir build/numeric sim/numeric_top.v rtl/jpeg_quant.v rtl/jpeg_transform.v /home/shuichi/verilog/jpeg/sim/numeric_test.cpp -CFLAGS '-O2'
+make[1]: Entering directory '/home/shuichi/verilog/jpeg/build/numeric'
+make[1]: Nothing to be done for 'default'.
+make[1]: Leaving directory '/home/shuichi/verilog/jpeg/build/numeric'
+- V e r i l a t i o n   R e p o r t: Verilator 5.049 devel rev v5.048-230-gde0236be2
+- Verilator: Built from 0.000 MB sources in 0 modules, into 0.000 MB in 0 C++ files needing 0.000 MB
+- Verilator: Walltime 0.022 s (elab=0.000, cvt=0.000, bld=0.020); cpu 0.002 s on 2 threads; allocated 30.668 MB
+build/numeric/Vnumeric_top
+quant mode=0 vectors=18360 cycles=28844
+quant mode=1 vectors=18360 cycles=29080
+transform mode=0 blocks=128 cycles=28685
+transform mode=1 blocks=128 cycles=28785
+PASS numeric vectors=53104 seed=20261005
+build/bitstream/Vjpeg_bitstream
+PASS bitstream restart: 64 padding/number combinations, FF00, fill bytes, boundary stalls, malformed markers
+PASS bitstream 100 roundtrips bytes=16773 seed=20261005
+build/storage/Vstorage_tb
+PASS FIFO wrap/full/used/keep/last words=979; two-bank RAM, zigzag, synchronous response stalls
+- sim/storage_tb.sv:42: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.049 devel
+- Verilator: $finish at 16ns; walltime 0.006 s; speed 2.684 us/s
+- Verilator: cpu 0.005 s on 1 threads; allocated 6 MB
+build/dma/Vdma_top
+PASS DMA 32x16-beat read/write bursts latency=128 max_outstanding=8,4 cycles=1454
+PASS DMA 32x16-beat read/write bursts latency=512 max_outstanding=8,8 cycles=2514
+build/width/Vwidth_tb
+PASS repack/unpack 30 frames, final keeps 1..8, FIFO full and last-byte ownership
+- sim/width_tb.sv:29: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.049 devel
+- Verilator: $finish at 217ns; walltime 0.129 s; speed 1.682 us/s
+- Verilator: cpu 0.115 s on 1 threads; allocated 6 MB
+build/apb/Vapb_tb
+PASS APB 64-bit settings/snapshot rollover, pulses, busy restrictions, table wait/index
+- sim/apb_tb.sv:36: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.049 devel
+- Verilator: $finish at 182ps; walltime 0.000 s; speed 603.340 ns/s
+- Verilator: cpu 0.000 s on 1 threads; allocated 6 MB
+python3 tools/generate_vectors.py
+generated 11 vectors, seed=20261005
+python3 tools/check_interop.py --generate
+generated 3 Pillow baseline JPEG decode vectors
+mkdir -p build/top
+verilator --cc --exe --build -j 2 --top-module jpeg_top -Irtl -Wall -Wno-BLKSEQ -Wno-UNUSEDSIGNAL -Wno-DECLFILENAME -Wno-PINCONNECTEMPTY --Mdir build/top rtl/jpeg_apb.v rtl/jpeg_bitstream.v rtl/jpeg_block_ram.v rtl/jpeg_block_stream.v rtl/jpeg_ctrl.v rtl/jpeg_dma_read.v rtl/jpeg_dma_write.v rtl/jpeg_entropy.v rtl/jpeg_input_fifo.v rtl/jpeg_quant.v rtl/jpeg_repack.v rtl/jpeg_stream_fifo.v rtl/jpeg_tables.v rtl/jpeg_top.v rtl/jpeg_transform.v /home/shuichi/verilog/jpeg/sim/top_test.cpp -CFLAGS '-O2'
+make[1]: Entering directory '/home/shuichi/verilog/jpeg/build/top'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -O2   -Os  -c -o top_test.o /home/shuichi/verilog/jpeg/sim/top_test.cpp
+g++    top_test.o verilated.o verilated_dpi.o verilated_threads.o Vjpeg_top__ALL.a    -pthread -lpthread -latomic   -o Vjpeg_top
+make[1]: Leaving directory '/home/shuichi/verilog/jpeg/build/top'
+- V e r i l a t i o n   R e p o r t: Verilator 5.049 devel rev v5.048-230-gde0236be2
+- Verilator: Built from 0.000 MB sources in 0 modules, into 0.000 MB in 0 C++ files needing 0.000 MB
+- Verilator: Walltime 9.039 s (elab=0.000, cvt=0.000, bld=9.037); cpu 0.002 s on 2 threads; allocated 30.668 MB
+build/top/Vjpeg_top
+flat encode cycles=1182 scan_bytes=5
+flat decode cycles=1194 samples=192
+edge444 encode cycles=4266 scan_bytes=983
+edge444 decode cycles=4320 samples=663
+edge422 encode cycles=3861 scan_bytes=698
+edge422 decode cycles=3918 samples=455
+edge420 encode cycles=3042 scan_bytes=542
+edge420 decode cycles=3126 samples=347
+q255 encode cycles=2025 scan_bytes=42
+q255 decode cycles=1782 samples=131
+dense encode cycles=3144 scan_bytes=1322
+dense decode cycles=3144 samples=768
+gradient encode cycles=7917 scan_bytes=1004
+gradient decode cycles=7899 samples=2304
+tiny444 encode cycles=1218 scan_bytes=8
+tiny444 decode cycles=1122 samples=3
+tiny420 encode cycles=1860 scan_bytes=11
+tiny420 decode cycles=1731 samples=3
+small422 encode cycles=1767 scan_bytes=243
+small422 decode cycles=1482 samples=75
+small420 encode cycles=2376 scan_bytes=237
+small420 decode cycles=1863 samples=59
+gradient encode cycles=7911 scan_bytes=1004
+gradient decode cycles=7896 samples=2304
+external0 decode cycles=4293 scan_bytes=371
+external1 decode cycles=3888 scan_bytes=260
+external2 decode cycles=3096 scan_bytes=196
+PASS APB, partial commit, configuration, capacity, EOF, marker, AXI faults, held AR/AW/W stop/drain
+PASS top vectors; max_read_outstanding=8 max_write_outstanding=8 nominal_mean_response_cycles=128
+build/top/Vjpeg_top --variable
+flat encode cycles=1275 scan_bytes=5
+flat decode cycles=1194 samples=192
+edge444 encode cycles=4941 scan_bytes=983
+edge444 decode cycles=4350 samples=663
+edge422 encode cycles=4509 scan_bytes=698
+edge422 decode cycles=3978 samples=455
+edge420 encode cycles=3498 scan_bytes=542
+edge420 decode cycles=3090 samples=347
+q255 encode cycles=2271 scan_bytes=42
+q255 decode cycles=1821 samples=131
+dense encode cycles=3360 scan_bytes=1322
+dense decode cycles=3189 samples=768
+gradient encode cycles=8988 scan_bytes=1004
+gradient decode cycles=7926 samples=2304
+tiny444 encode cycles=1257 scan_bytes=8
+tiny444 decode cycles=1080 samples=3
+tiny420 encode cycles=2055 scan_bytes=11
+tiny420 decode cycles=1725 samples=3
+small422 encode cycles=1917 scan_bytes=243
+small422 decode cycles=1563 samples=75
+small420 encode cycles=2706 scan_bytes=237
+small420 decode cycles=1923 samples=59
+gradient encode cycles=9015 scan_bytes=1004
+gradient decode cycles=7986 samples=2304
+external0 decode cycles=4305 scan_bytes=371
+external1 decode cycles=3957 scan_bytes=260
+external2 decode cycles=3039 scan_bytes=196
+PASS APB, partial commit, configuration, capacity, EOF, marker, AXI faults, held AR/AW/W stop/drain
+PASS top vectors; max_read_outstanding=8 max_write_outstanding=8 nominal_mean_response_cycles=128.607
+python3 tools/check_interop.py
+PASS external decode for 11 actual RTL JPEGs; metrics build/interop.json
+python3 tools/test_jpeg_tool.py
+RTL encode cycles=1215 output_bytes=8
+RTL decode cycles=1128 output_bytes=3
+RTL encode cycles=4254 output_bytes=808
+RTL decode cycles=4302 output_bytes=663
+RTL encode cycles=3852 output_bytes=674
+RTL decode cycles=3891 output_bytes=455
+RTL encode cycles=3036 output_bytes=415
+RTL decode cycles=3105 output_bytes=347
+RTL encode cycles=2001 output_bytes=18
+RTL decode cycles=1848 output_bytes=131
+RTL encode cycles=8016 output_bytes=3608
+RTL decode cycles=7992 output_bytes=2304
+RTL decode cycles=7983 output_bytes=2304
+RTL decode cycles=5547 output_bytes=1536
+RTL decode cycles=5508 output_bytes=1152
+RTL encode cycles=4254 output_bytes=808
+JPEG: /tmp/jpeg-cli-test-vtq07gp8/entry.jpg (17x13, 444, Q=16, 1256 bytes)
+RTL decode cycles=7983 output_bytes=2304
+PNG: /tmp/jpeg-cli-test-vtq07gp8/entry.png (32x24)
+JPEG: /tmp/jpeg-cli-test-vtq07gp8/one.jpg (1x1, 444, Q=1, 456 bytes)
+PNG: /tmp/jpeg-cli-test-vtq07gp8/one_out.png (1x1)
+JPEG: /tmp/jpeg-cli-test-vtq07gp8/rgba.jpg (17x13, 444, Q=16, 1256 bytes)
+PNG: /tmp/jpeg-cli-test-vtq07gp8/rgba_out.png (17x13)
+JPEG: /tmp/jpeg-cli-test-vtq07gp8/odd422.jpg (17x13, 422, Q=8, 1122 bytes)
+PNG: /tmp/jpeg-cli-test-vtq07gp8/odd422_out.png (17x13)
+JPEG: /tmp/jpeg-cli-test-vtq07gp8/odd420.jpg (17x13, 420, Q=16, 863 bytes)
+PNG: /tmp/jpeg-cli-test-vtq07gp8/odd420_out.png (17x13)
+JPEG: /tmp/jpeg-cli-test-vtq07gp8/largeq.jpg (9x9, 420, Q=255, 466 bytes)
+PNG: /tmp/jpeg-cli-test-vtq07gp8/largeq_out.png (9x9)
+JPEG: /tmp/jpeg-cli-test-vtq07gp8/dense.jpg (32x24, 444, Q=1, 4056 bytes)
+PNG: /tmp/jpeg-cli-test-vtq07gp8/dense_out.png (32x24)
+PNG: /tmp/jpeg-cli-test-vtq07gp8/external0.png (32x24)
+PNG: /tmp/jpeg-cli-test-vtq07gp8/external1.png (32x24)
+PNG: /tmp/jpeg-cli-test-vtq07gp8/external2.png (32x24)
+PASS CLI: 6 PNG encodes byte-exact, 9 JPEG decodes pixel-exact, external decode, remapped table IDs, entry scripts and rejection cases

@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "questasim": {
+      "command": "py",
+      "args": [
+        "-3",
+        "d:/Users/shuichi/Documents/AI/jpeg/tools/vsim_mcp.py"
+      ],
+      "env": {
+        "VSIM_HOST": "127.0.0.1",
+        "VSIM_PORT": "5678"
+      }
+    }
+  }
+}

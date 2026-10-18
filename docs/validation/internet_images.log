@@ -1,0 +1,19 @@
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_encode.py /home/shuichi/verilog/jpeg/tests/data/internet/example.png /home/shuichi/verilog/jpeg/tests/results/internet/encoded_444.jpg --quant 16 --sampling 444
+RTL encode cycles=308757 output_bytes=17127
+JPEG: /home/shuichi/verilog/jpeg/tests/results/internet/encoded_444.jpg (172x178, 444, Q=16, 17575 bytes)
+ENCODER 444 {"max_difference": 37, "mean_absolute_difference": 2.579979966901838, "mse": 16.380236913160875, "psnr_db": 35.987601820433646}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_encode.py /home/shuichi/verilog/jpeg/tests/data/internet/example.png /home/shuichi/verilog/jpeg/tests/results/internet/encoded_422.jpg --quant 16 --sampling 422
+RTL encode cycles=206034 output_bytes=12632
+JPEG: /home/shuichi/verilog/jpeg/tests/results/internet/encoded_422.jpg (172x178, 422, Q=16, 13080 bytes)
+ENCODER 422 {"max_difference": 101, "mean_absolute_difference": 4.255106262520687, "mse": 93.99896568243184, "psnr_db": 28.399572860010174}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_encode.py /home/shuichi/verilog/jpeg/tests/data/internet/example.png /home/shuichi/verilog/jpeg/tests/results/internet/encoded_420.jpg --quant 16 --sampling 420
+RTL encode cycles=161367 output_bytes=10687
+JPEG: /home/shuichi/verilog/jpeg/tests/results/internet/encoded_420.jpg (172x178, 420, Q=16, 11135 bytes)
+ENCODER 420 {"max_difference": 127, "mean_absolute_difference": 5.515340562668757, "mse": 153.74088711784688, "psnr_db": 26.26290978155254}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/internet/flower_baseline.jpg /home/shuichi/verilog/jpeg/tests/results/internet/flower_rtl.png
+RTL decode cycles=1169856 output_bytes=358000
+PNG: /home/shuichi/verilog/jpeg/tests/results/internet/flower_rtl.png (500x477)
+DECODER {"max_difference": 37, "mean_absolute_difference": 0.775078965758211, "mse": 3.766212438853948, "psnr_db": 42.37175547465569}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/internet/flower.jpg /home/shuichi/verilog/jpeg/tests/results/internet/progressive_rejected.png
+ERROR: unsupported JPEG marker 0xc2 (baseline only)
+PASS separated internet-image encoder/decoder tests

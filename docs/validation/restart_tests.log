@@ -1,0 +1,138 @@
+python3 tools/generate_restart_vectors.py
+generated 29 restart vectors, seed=20261006
+build/top/Vjpeg_top --restart
+fmt0_ri1 restart decode cycles=31113 status=PASS code=0
+fmt0_ri2 restart decode cycles=31101 status=PASS code=0
+fmt0_ri3 restart decode cycles=31107 status=PASS code=0
+fmt0_ri65535 restart decode cycles=31107 status=PASS code=0
+fmt1_ri1 restart decode cycles=20952 status=PASS code=0
+fmt1_ri2 restart decode cycles=20952 status=PASS code=0
+fmt1_ri3 restart decode cycles=20958 status=PASS code=0
+fmt1_ri65535 restart decode cycles=20955 status=PASS code=0
+fmt2_ri1 restart decode cycles=18918 status=PASS code=0
+fmt2_ri2 restart decode cycles=18912 status=PASS code=0
+fmt2_ri3 restart decode cycles=18918 status=PASS code=0
+fmt2_ri65535 restart decode cycles=18915 status=PASS code=0
+exact_final0 restart decode cycles=1914 status=PASS code=0
+exact_final1 restart decode cycles=2328 status=PASS code=0
+exact_final2 restart decode cycles=3141 status=PASS code=0
+marker_fill restart decode cycles=18915 status=PASS code=0
+flat restart decode cycles=2415 status=PASS code=0
+marker_4k restart decode cycles=5901 status=PASS code=0
+wrong_number restart decode cycles=348 status=expected error code=6
+early_marker restart decode cycles=147 status=expected error code=6
+late_marker restart decode cycles=348 status=expected error code=10
+bad_padding restart decode cycles=348 status=expected error code=10
+missing_marker restart decode cycles=348 status=expected error code=10
+truncated_interval restart decode cycles=351 status=expected error code=5
+truncated_ff restart decode cycles=153 status=expected error code=6
+unexpected_final restart decode cycles=1134 status=expected error code=6
+interval_zero restart decode cycles=153 status=expected error code=6
+interval_too_long restart decode cycles=351 status=expected error code=6
+interval_too_short restart decode cycles=702 status=expected error code=10
+fmt2_ri1 restart decode cycles=1316 status=expected error code=9
+fmt2_ri1 restart decode cycles=18918 status=PASS code=0
+PASS 29 restart vectors, MCU 444/422/420, sequence wrap, padding/EOF/errors, stop/recovery, encode config rejection
+build/top/Vjpeg_top --restart-variable
+fmt0_ri1 restart decode cycles=31104 status=PASS code=0
+fmt0_ri2 restart decode cycles=31161 status=PASS code=0
+fmt0_ri3 restart decode cycles=31137 status=PASS code=0
+fmt0_ri65535 restart decode cycles=31104 status=PASS code=0
+fmt1_ri1 restart decode cycles=20895 status=PASS code=0
+fmt1_ri2 restart decode cycles=20985 status=PASS code=0
+fmt1_ri3 restart decode cycles=21063 status=PASS code=0
+fmt1_ri65535 restart decode cycles=20949 status=PASS code=0
+fmt2_ri1 restart decode cycles=18891 status=PASS code=0
+fmt2_ri2 restart decode cycles=18921 status=PASS code=0
+fmt2_ri3 restart decode cycles=19023 status=PASS code=0
+fmt2_ri65535 restart decode cycles=18927 status=PASS code=0
+exact_final0 restart decode cycles=1995 status=PASS code=0
+exact_final1 restart decode cycles=2307 status=PASS code=0
+exact_final2 restart decode cycles=3159 status=PASS code=0
+marker_fill restart decode cycles=18984 status=PASS code=0
+flat restart decode cycles=2466 status=PASS code=0
+marker_4k restart decode cycles=5889 status=PASS code=0
+wrong_number restart decode cycles=342 status=expected error code=6
+early_marker restart decode cycles=198 status=expected error code=6
+late_marker restart decode cycles=384 status=expected error code=10
+bad_padding restart decode cycles=387 status=expected error code=10
+missing_marker restart decode cycles=324 status=expected error code=10
+truncated_interval restart decode cycles=399 status=expected error code=5
+truncated_ff restart decode cycles=144 status=expected error code=6
+unexpected_final restart decode cycles=1131 status=expected error code=6
+interval_zero restart decode cycles=183 status=expected error code=6
+interval_too_long restart decode cycles=372 status=expected error code=6
+interval_too_short restart decode cycles=747 status=expected error code=10
+fmt2_ri1 restart decode cycles=1388 status=expected error code=9
+fmt2_ri1 restart decode cycles=18966 status=PASS code=0
+PASS 29 restart vectors, MCU 444/422/420, sequence wrap, padding/EOF/errors, stop/recovery, encode config rejection
+python3 tools/test_restart_cli.py
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/fmt0_ri1.jpg /home/shuichi/verilog/jpeg/tests/results/restart/fmt0_ri1_rtl.png
+RTL decode cycles=31110 output_bytes=8295
+PNG: /home/shuichi/verilog/jpeg/tests/results/restart/fmt0_ri1_rtl.png (79x35)
+fmt0_ri1 {"input": "tests/data/restart/fmt0_ri1.jpg", "dimensions": [79, 35], "interval": 1, "sampling": "444", "status": "PASS", "integer_reference": "RGB byte exact", "rtl_vs_external_rgb": {"max_difference": 4, "mean_absolute_difference": 0.4978902953586498, "mse": 0.711754068716094, "psnr_db": 49.60750402413304}}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/fmt1_ri2.jpg /home/shuichi/verilog/jpeg/tests/results/restart/fmt1_ri2_rtl.png
+RTL decode cycles=20952 output_bytes=5565
+PNG: /home/shuichi/verilog/jpeg/tests/results/restart/fmt1_ri2_rtl.png (79x35)
+fmt1_ri2 {"input": "tests/data/restart/fmt1_ri2.jpg", "dimensions": [79, 35], "interval": 2, "sampling": "422", "status": "PASS", "integer_reference": "RGB byte exact", "rtl_vs_external_rgb": {"max_difference": 105, "mean_absolute_difference": 18.9124773960217, "mse": 770.5187462326703, "psnr_db": 19.262971515754877}}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/fmt2_ri3.jpg /home/shuichi/verilog/jpeg/tests/results/restart/fmt2_ri3_rtl.png
+RTL decode cycles=18918 output_bytes=4205
+PNG: /home/shuichi/verilog/jpeg/tests/results/restart/fmt2_ri3_rtl.png (79x35)
+fmt2_ri3 {"input": "tests/data/restart/fmt2_ri3.jpg", "dimensions": [79, 35], "interval": 3, "sampling": "420", "status": "PASS", "integer_reference": "RGB byte exact", "rtl_vs_external_rgb": {"max_difference": 179, "mean_absolute_difference": 27.437974683544304, "mse": 1568.5801084990958, "psnr_db": 16.175736575404244}}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/exact_final2.jpg /home/shuichi/verilog/jpeg/tests/results/restart/exact_final2_rtl.png
+RTL decode cycles=3141 output_bytes=768
+PNG: /home/shuichi/verilog/jpeg/tests/results/restart/exact_final2_rtl.png (32x16)
+exact_final2 {"input": "tests/data/restart/exact_final2.jpg", "dimensions": [32, 16], "interval": 2, "sampling": "420", "status": "PASS", "integer_reference": "RGB byte exact", "rtl_vs_external_rgb": {"max_difference": 139, "mean_absolute_difference": 25.280598958333332, "mse": 1359.7766927083333, "psnr_db": 16.796127680031294}}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/marker_fill.jpg /home/shuichi/verilog/jpeg/tests/results/restart/marker_fill_rtl.png
+RTL decode cycles=18915 output_bytes=4205
+PNG: /home/shuichi/verilog/jpeg/tests/results/restart/marker_fill_rtl.png (79x35)
+marker_fill {"input": "tests/data/restart/marker_fill.jpg", "dimensions": [79, 35], "interval": 1, "sampling": "420", "status": "PASS", "integer_reference": "RGB byte exact", "rtl_vs_external_rgb": {"max_difference": 169, "mean_absolute_difference": 27.68474984930681, "mse": 1548.759614225437, "psnr_db": 16.23096345508265}}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/flat.jpg /home/shuichi/verilog/jpeg/tests/results/restart/flat_rtl.png
+RTL decode cycles=2412 output_bytes=576
+PNG: /home/shuichi/verilog/jpeg/tests/results/restart/flat_rtl.png (24x8)
+flat {"input": "tests/data/restart/flat.jpg", "dimensions": [24, 8], "interval": 1, "sampling": "444", "status": "PASS", "integer_reference": "RGB byte exact", "rtl_vs_external_rgb": {"max_difference": 0, "mean_absolute_difference": 0.0, "mse": 0.0, "psnr_db": null}}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/marker_4k.jpg /home/shuichi/verilog/jpeg/tests/results/restart/marker_4k_rtl.png
+RTL decode cycles=5901 output_bytes=576
+PNG: /home/shuichi/verilog/jpeg/tests/results/restart/marker_4k_rtl.png (24x8)
+marker_4k {"input": "tests/data/restart/marker_4k.jpg", "dimensions": [24, 8], "interval": 1, "sampling": "444", "status": "PASS", "integer_reference": "RGB byte exact", "rtl_vs_external_rgb": {"max_difference": 0, "mean_absolute_difference": 0.0, "mse": 0.0, "psnr_db": null}}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/internet_five/cat.jpg /home/shuichi/verilog/jpeg/tests/results/restart/cat_rtl.png
+RTL decode cycles=24360570 output_bytes=7670400
+PNG: /home/shuichi/verilog/jpeg/tests/results/restart/cat_rtl.png (1600x1598)
+cat {"input": "tests/data/internet_five/cat.jpg", "dimensions": [1600, 1598], "interval": 200, "sampling": "444", "status": "PASS", "integer_reference": "RGB byte exact", "rtl_vs_external_rgb": {"max_difference": 4, "mean_absolute_difference": 0.5594238892365457, "mse": 0.6782203014184397, "psnr_db": 49.8170957533436}}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/internet_five/goldfish.jpg /home/shuichi/verilog/jpeg/tests/results/restart/goldfish_rtl.png
+RTL decode cycles=6267303 output_bytes=1975680
+PNG: /home/shuichi/verilog/jpeg/tests/results/restart/goldfish_rtl.png (784x840)
+goldfish {"input": "tests/data/internet_five/goldfish.jpg", "dimensions": [784, 840], "interval": 98, "sampling": "444", "status": "PASS", "integer_reference": "RGB byte exact", "rtl_vs_external_rgb": {"max_difference": 4, "mean_absolute_difference": 0.7050261175898931, "mse": 0.9921353660511824, "psnr_db": 48.165094299250796}}
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/wrong_number.jpg /home/shuichi/verilog/jpeg/tests/results/restart/wrong_number_rejected.png
+ERROR: RTL error code 6
+ERROR: Command '['/home/shuichi/verilog/jpeg/build/jpeg_tool/Vjpeg_top', '/tmp/jpeg-rtl-k24s10m5']' returned non-zero exit status 1.
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/early_marker.jpg /home/shuichi/verilog/jpeg/tests/results/restart/early_marker_rejected.png
+ERROR: RTL error code 6
+ERROR: Command '['/home/shuichi/verilog/jpeg/build/jpeg_tool/Vjpeg_top', '/tmp/jpeg-rtl-afzh59l5']' returned non-zero exit status 1.
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/late_marker.jpg /home/shuichi/verilog/jpeg/tests/results/restart/late_marker_rejected.png
+ERROR: RTL error code 10
+ERROR: Command '['/home/shuichi/verilog/jpeg/build/jpeg_tool/Vjpeg_top', '/tmp/jpeg-rtl-l6n71xer']' returned non-zero exit status 1.
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/bad_padding.jpg /home/shuichi/verilog/jpeg/tests/results/restart/bad_padding_rejected.png
+ERROR: RTL error code 10
+ERROR: Command '['/home/shuichi/verilog/jpeg/build/jpeg_tool/Vjpeg_top', '/tmp/jpeg-rtl-jimp8rf6']' returned non-zero exit status 1.
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/missing_marker.jpg /home/shuichi/verilog/jpeg/tests/results/restart/missing_marker_rejected.png
+ERROR: RTL error code 10
+ERROR: Command '['/home/shuichi/verilog/jpeg/build/jpeg_tool/Vjpeg_top', '/tmp/jpeg-rtl-mut40x2r']' returned non-zero exit status 1.
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/truncated_interval.jpg /home/shuichi/verilog/jpeg/tests/results/restart/truncated_interval_rejected.png
+ERROR: RTL error code 5
+ERROR: Command '['/home/shuichi/verilog/jpeg/build/jpeg_tool/Vjpeg_top', '/tmp/jpeg-rtl-6z6gb2cl']' returned non-zero exit status 1.
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/truncated_ff.jpg /home/shuichi/verilog/jpeg/tests/results/restart/truncated_ff_rejected.png
+ERROR: RTL error code 5
+ERROR: Command '['/home/shuichi/verilog/jpeg/build/jpeg_tool/Vjpeg_top', '/tmp/jpeg-rtl-_vck5apk']' returned non-zero exit status 1.
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/unexpected_final.jpg /home/shuichi/verilog/jpeg/tests/results/restart/unexpected_final_rejected.png
+ERROR: RTL error code 6
+ERROR: Command '['/home/shuichi/verilog/jpeg/build/jpeg_tool/Vjpeg_top', '/tmp/jpeg-rtl-lmgngrol']' returned non-zero exit status 1.
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/interval_zero.jpg /home/shuichi/verilog/jpeg/tests/results/restart/interval_zero_rejected.png
+ERROR: restart marker without nonzero DRI
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/interval_too_long.jpg /home/shuichi/verilog/jpeg/tests/results/restart/interval_too_long_rejected.png
+ERROR: RTL error code 6
+ERROR: Command '['/home/shuichi/verilog/jpeg/build/jpeg_tool/Vjpeg_top', '/tmp/jpeg-rtl-46r28jdb']' returned non-zero exit status 1.
+$ /usr/bin/python3 /home/shuichi/verilog/jpeg/tools/jpeg_decode.py /home/shuichi/verilog/jpeg/tests/data/restart/interval_too_short.jpg /home/shuichi/verilog/jpeg/tests/results/restart/interval_too_short_rejected.png
+ERROR: RTL error code 10
+ERROR: Command '['/home/shuichi/verilog/jpeg/build/jpeg_tool/Vjpeg_top', '/tmp/jpeg-rtl-wh2rcgjq']' returned non-zero exit status 1.
+PASS restart CLI: 9 independent JPEGs, pixel-reference match, external comparison; 11 malformed rejections
