@@ -108,6 +108,8 @@
      - AXI公称128 cycle（500 ns相当）遅延、遅延変動（64〜192 cycle）、AR/AW/W受付停止、圧縮率1:1およびノイズによるJPEG膨張時のストレステスト。
    - **Restart拡張テスト**: `make test-restart`
    - **CLIツールテスト**: `make test-tools`
+   - **インタラクティブ・AIデバッグモード**: `make <target> AI_DEBUG=1 [FILTER=<name>]`
+     - 各種テストで QuestaSim GUI を起動し、全波形ロギング（`log -r /*`）・Wave表示・ソケット待機（`127.0.0.1:5678`）を有効化して 0ns 停止待機する（例: `make test-internet-images FILTER=flower AI_DEBUG=1`、`make unit AI_DEBUG=1`）。詳細は `docs/ai_debug_guide.md` を参照。
 3. **再現性の担保（乱数シード規約）**:
    - 検証スクリプト・テストベンチにおける疑似乱数シードは、原則として固定値 **`20261005`** を使用し、常に100%再現可能なテストとすること。
 4. **結果の記録と報告**:
