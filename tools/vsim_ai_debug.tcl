@@ -116,17 +116,22 @@ proc vsim_process_cmd {sock} {
     }
 }
 
-# 5. ポート番号設定とサーバーソケットのバインド
+# 5. ホストアドレス・ポート番号設定とサーバーソケットのバインド
+set VSIM_HOST "127.0.0.1"
+if {[info exists env(VSIM_HOST)]} {
+    set VSIM_HOST $env(VSIM_HOST)
+}
+
 set VSIM_PORT 5678
 if {[info exists env(VSIM_PORT)]} {
     set VSIM_PORT $env(VSIM_PORT)
 }
 
-if {[catch {socket -server vsim_handle_client $VSIM_PORT} srv_sock]} {
-    puts "\[vsim_ai_debug ERROR\] Failed to start server on port $VSIM_PORT: $srv_sock"
+if {[catch {socket -server vsim_handle_client -myaddr $VSIM_HOST $VSIM_PORT} srv_sock]} {
+    puts "\[vsim_ai_debug ERROR\] Failed to start server on ${VSIM_HOST}:${VSIM_PORT}: $srv_sock"
 } else {
     puts "-----------------------------------------------------------------"
-    puts " \[vsim_ai_debug\] AI Debug Socket Server is READY on port $VSIM_PORT"
+    puts " \[vsim_ai_debug\] AI Debug Socket Server is READY on ${VSIM_HOST}:${VSIM_PORT}"
     puts " - run -all is NOT executed (simulation stopped at 0ns)."
     puts " - All signals are logged via 'log -r /*'."
     puts " - MCP Server can now connect and control the simulation."
